@@ -27,7 +27,7 @@ namespace RumbleRain {
 			VibrationInfoProvider vibrationInfoProvider = VibrationInfoProvider.From(ConfigManager.VibrationBehavior.Value);
 			DeviceManager = new DeviceManager(vibrationInfoProvider, Logger);
 			DeviceManager.ConnectDevices();
-			StartCoroutine(DeviceManager.PollVibrations());
+			StartCoroutine(DeviceManager.PollVibrations()); // TODO: move this to a OnRunStart listener
 
 			GlobalEventManager.onClientDamageNotified += VibrateDevicesOnDamage;
 		}

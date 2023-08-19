@@ -73,6 +73,10 @@ namespace RumbleRain {
 			DurationSnapshot = Duration;
 		}
 
+		protected internal bool IsImpotent() {
+			return Intensity <= 0 || Duration <= TimeSpan.Zero;
+		}
+
 		public override string ToString() {
 			return $"{base.ToString()}(intensity={Intensity}, duration={Duration.TotalSeconds} seconds)";
 		}
