@@ -38,6 +38,13 @@ namespace RumbleRain {
 		/// </summary>
 		/// <param name="timeSinceLastUpdate">Time since this method was last called by its caller.</param>
 		protected internal abstract void UpdateVibrationInfo(TimeSpan timeSinceLastUpdate);
+
+		/// <summary>
+		/// Sets the <c>VibrationInfoProvider</c> to its inital state.
+		/// </summary>
+		protected internal virtual void Reset() {
+			VibrationInfo = new VibrationInfo();
+		}
 	}
 
 	/// <summary>

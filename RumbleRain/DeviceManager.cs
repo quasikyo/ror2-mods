@@ -16,7 +16,7 @@ namespace RumbleRain {
 	/// </summary>
 	internal class DeviceManager {
 
-		internal readonly static TimeSpan VibrationPollingRate = TimeSpan.FromSeconds(ConfigManager.PollingRateSeconds.Value);
+		private readonly static TimeSpan VibrationPollingRate = TimeSpan.FromSeconds(ConfigManager.PollingRateSeconds.Value);
 
 		private ManualLogSource Logger { get; set; }
 		private ButtplugClient ButtplugClient { get; set; }
@@ -42,16 +42,14 @@ namespace RumbleRain {
 		/// </summary>
 		public async void ConnectDevices() {
 			try {
-				Logger.LogInfo("Connecting to websocket server");
+				Logger.LogInfo($"Attempting to connect to Intiface server at \"{ConfigManager.ServerUri.Value}\"");
 				await ButtplugClient.ConnectAsync(new ButtplugWebsocketConnector(new Uri(ConfigManager.ServerUri.Value)));
-			} catch (ButtplugException exception) {
-				Logger.LogError($"Connection failed: {exception}");
-			}
-
-			try {
+				Logger.LogInfo("Connection successful. Beginning scan for devices");
 				await ButtplugClient.StartScanningAsync();
+			} catch (ButtplugHandshakeException exception) {
+				Logger.LogError($"Attempt to connect to Intiface server failed: {exception}");
 			} catch (ButtplugException exception) {
-				Logger.LogError($"Scanning for devices failed: {exception}");
+				Logger.LogError($"ButtplugIO error occured while connecting devices: {exception}");
 			}
 		}
 
@@ -59,19 +57,20 @@ namespace RumbleRain {
 		/// Causes the connected devices to vibrate according to periodically performed calculations.
 		/// </summary>
 		internal IEnumerator PollVibrations() {
+			Logger.LogInfo($"Beginning polling every {VibrationPollingRate.TotalSeconds} seconds");
 			while (true) {
 				yield return new WaitForSeconds((float)VibrationPollingRate.TotalSeconds);
 
 				if (!ButtplugClient.Connected || (VibrationInfoProvider.VibrationInfo.IsImpotent() && DevicesAreStopped)) {
 					continue;
-				}  else if (VibrationInfoProvider.VibrationInfo.IsImpotent() && !DevicesAreStopped) {
+				} else if (VibrationInfoProvider.VibrationInfo.IsImpotent() && !DevicesAreStopped) {
 					StopConnectedDevices();
 					continue;
 				}
 
-				VibrationInfoProvider.UpdateVibrationInfo(VibrationPollingRate);
-				VibrateConnectedDevices(VibrationInfoProvider.VibrationInfo.Intensity);
 				Logger.LogDebug($"{VibrationInfoProvider.VibrationInfo} from {VibrationInfoProvider}");
+				VibrateConnectedDevices(VibrationInfoProvider.VibrationInfo.Intensity);
+				VibrationInfoProvider.UpdateVibrationInfo(VibrationPollingRate);
 			}
 		}
 
@@ -101,20 +100,32 @@ namespace RumbleRain {
 			});
 		}
 
+		/// <summary>
+		/// Stops all connected devices.
+		/// </summary>
 		private void StopConnectedDevices() {
-			Logger.LogDebug($"Stop called");
 			ConnectedDevices.ForEach(async device => await device.Stop());
 			DevicesAreStopped = true;
 		}
 
+		/// <summary>
+		/// Stops all connected devices and resets the calculations used for vibrations.
+		/// </summary>
+		internal void CleanUp() {
+			StopConnectedDevices();
+			VibrationInfoProvider.Reset();
+		}
+
 		private void HandleDeviceAdded(object sender, DeviceAddedEventArgs args) {
-			if (!IsVibratableDevice(args.Device)) return;
+			if (!IsVibratableDevice(args.Device)) { return; }
+
 			Logger.LogInfo($"{args.Device.Name} connected to client {ButtplugClient.Name}");
 			ConnectedDevices.Add(args.Device);
 		}
 
 		private void HandleDeviceRemoved(object sender, DeviceRemovedEventArgs args) {
-			if (!IsVibratableDevice(args.Device)) return;
+			if (!IsVibratableDevice(args.Device)) { return; }
+
 			Logger.LogInfo($"{args.Device.Name} disconnected from client {ButtplugClient.Name}");
 			ConnectedDevices.Remove(args.Device);
 		}

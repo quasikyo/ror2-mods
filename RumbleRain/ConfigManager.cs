@@ -1,6 +1,5 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using RoR2;
 
 using static RumbleRain.VibrationInfoProvider;
 
@@ -23,12 +22,7 @@ namespace RumbleRain {
 		internal static ConfigEntry<VibrationBehavior> VibrationBehavior { get; set; }
 		internal static ConfigEntry<bool> AccountForExcessDamage { get; set; }
 
-        [ConCommand(commandName = "rumblerain_config_reload", flags = ConVarFlags.None, helpText = "Reloads the config file for RumbleRain.")]
-		internal static void ReloadConfig(ConCommandArgs _) {
-			VibrationConfigFile.Reload();
-		}
-
-		internal static void SetupConfig() {
+		static ConfigManager() {
 			VibrationConfigFile = new ConfigFile(Paths.ConfigPath + "\\RumbleRain.cfg", true);
 
 			ServerUri = VibrationConfigFile.Bind(

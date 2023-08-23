@@ -43,11 +43,11 @@ namespace RumbleRain {
 			set => _durationSnapshot = Clamp(value, TimeSpan.Zero, TimeSpan.FromSeconds(ConfigManager.MaximumVibrationDurationSeconds.Value));
 		}
 
-		internal VibrationInfo() : this(0, TimeSpan.Zero) {}
+		internal VibrationInfo() : this(0, TimeSpan.Zero) { }
 
-		internal VibrationInfo(double intensity) : this(intensity, TimeSpan.Zero) {}
+		internal VibrationInfo(double intensity) : this(intensity, TimeSpan.Zero) { }
 
-		internal VibrationInfo(TimeSpan duration) : this(0, duration) {}
+		internal VibrationInfo(TimeSpan duration) : this(0, duration) { }
 
 		internal VibrationInfo(double intensity, TimeSpan duration) {
 			Intensity = intensity;

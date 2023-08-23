@@ -22,29 +22,36 @@ namespace RumbleRain {
 		public void Awake() {
 			Logger.LogInfo("Performing setup for RumbleRain");
 
-			ConfigManager.SetupConfig();
-
 			VibrationInfoProvider vibrationInfoProvider = VibrationInfoProvider.From(ConfigManager.VibrationBehavior.Value);
 			DeviceManager = new DeviceManager(vibrationInfoProvider, Logger);
 			DeviceManager.ConnectDevices();
-			StartCoroutine(DeviceManager.PollVibrations()); // TODO: move this to a OnRunStart listener
 
+			Run.onRunStartGlobal += (Run _) => { StartCoroutine(DeviceManager.PollVibrations()); };
+			Run.onRunDestroyGlobal += (Run _) => {
+				StopAllCoroutines();
+				DeviceManager.CleanUp();
+			};
 			GlobalEventManager.onClientDamageNotified += VibrateDevicesOnDamage;
 		}
 
 		private void VibrateDevicesOnDamage(DamageDealtMessage damageMessage) {
-			Logger.LogDebug($"Victim: {damageMessage.victim} - Attacker: {damageMessage.attacker}");
-			if (damageMessage.attacker == null || damageMessage.victim == null) { return; }
+			Logger.LogDebug($"Victim: {damageMessage.victim} | Attacker: {damageMessage.attacker}");
+			if (damageMessage.victim == null) { return; }
 
 			LocalPlayerController = LocalUserManager.GetFirstLocalUser().cachedMasterController;
 			GameObject playerBody = LocalPlayerController.master.GetBodyObject();
 			bool didPlayerReceiveDamage = playerBody == damageMessage.victim;
 			bool didPlayerDealDamage = playerBody == damageMessage.attacker;
 
-			float percentageOfHealthDamaged = damageMessage.damage / damageMessage.victim.GetComponent<HealthComponent>().fullCombinedHealth;
-			if (!ConfigManager.AccountForExcessDamage.Value) percentageOfHealthDamaged = Math.Min(percentageOfHealthDamaged, 1);
-			VibrationInfo vibrationInfo = new VibrationInfo(TimeSpan.FromSeconds(ConfigManager.BaseVibrationDurationSeconds.Value * percentageOfHealthDamaged));
-			
+			float victimMaxHealth = damageMessage.victim.GetComponent<HealthComponent>().fullCombinedHealth;
+			float percentageOfHealthDamaged = damageMessage.damage / victimMaxHealth;
+			if (!ConfigManager.AccountForExcessDamage.Value) {
+				percentageOfHealthDamaged = Math.Min(percentageOfHealthDamaged, 1);
+			}
+
+			double baseSeconds = ConfigManager.BaseVibrationDurationSeconds.Value;
+			VibrationInfo vibrationInfo = new VibrationInfo(TimeSpan.FromSeconds(baseSeconds * percentageOfHealthDamaged));
+
 			if (didPlayerDealDamage && ConfigManager.IsRewardingEnabled.Value) {
 				vibrationInfo.Intensity = ConfigManager.VibrationIntensityMultiplierOnDamageDealt.Value * percentageOfHealthDamaged;
 				DeviceManager.SendVibrationInfo(vibrationInfo);
