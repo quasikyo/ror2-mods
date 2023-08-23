@@ -30,7 +30,7 @@ namespace RumbleRain {
 
 		static ConfigManager() {
 			VibrationConfigFile = new ConfigFile(Paths.ConfigPath + "\\RumbleRain.cfg", true);
-			ModSettingsManager.SetModDescription("Vibrate BPio-capable devices when receiving and/or dealing damage.");
+			ModSettingsManager.SetModDescription("Vibrates BPio-capable devices in response to in-game damage events.");
 
 			ServerUri = VibrationConfigFile.Bind(
 				"Devices",

@@ -1,0 +1,11 @@
+{
+	"name": "RumbleRain",
+	"version_number": "0.1.0",
+	"website_url": "https://github.com/quasikyo/rumble-rain",
+	"description": "Vibrates BPio-capable devices in response to in-game damage events.",
+	"dependencies": [
+		"bbepis-BepInExPack-5.4.2113",
+		"tristanmcpherson-R2API-5.0.5",
+		"Rune580-Risk_Of_Options-2.7.0"
+	]
+}

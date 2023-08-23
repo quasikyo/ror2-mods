@@ -68,9 +68,8 @@ namespace RumbleRain {
 					continue;
 				}
 
-				Logger.LogDebug($"{VibrationInfoProvider.VibrationInfo} from {VibrationInfoProvider}");
-				VibrateConnectedDevices(VibrationInfoProvider.VibrationInfo.Intensity);
 				VibrationInfoProvider.UpdateVibrationInfo(TimeSpan.FromSeconds(secondsToWaitFor));
+				VibrateConnectedDevices(VibrationInfoProvider.VibrationInfo.Intensity);
 			}
 		}
 

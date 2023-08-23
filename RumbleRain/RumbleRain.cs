@@ -15,7 +15,7 @@ namespace RumbleRain {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "RumbleRain";
-		public const string PluginVersion = "1.0.0";
+		public const string PluginVersion = "0.1.0";
 
 		private PlayerCharacterMasterController LocalPlayerController { get; set; }
 		private DeviceManager DeviceManager { get; set; }
@@ -36,7 +36,6 @@ namespace RumbleRain {
 		}
 
 		private void VibrateDevicesOnDamage(DamageDealtMessage damageMessage) {
-			Logger.LogDebug($"Victim: {damageMessage.victim} | Attacker: {damageMessage.attacker}");
 			if (damageMessage.victim == null) { return; }
 
 			LocalPlayerController = LocalUserManager.GetFirstLocalUser().cachedMasterController;
