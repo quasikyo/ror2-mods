@@ -45,7 +45,7 @@ namespace RumbleRain {
 
 			float victimMaxHealth = damageMessage.victim.GetComponent<HealthComponent>().fullCombinedHealth;
 			float percentageOfHealthDamaged = damageMessage.damage / victimMaxHealth;
-			if (!ConfigManager.AccountForExcessDamage.Value) {
+			if (!ConfigManager.AllowExcessDamage.Value) {
 				percentageOfHealthDamaged = Math.Min(percentageOfHealthDamaged, 1);
 			}
 
@@ -53,11 +53,11 @@ namespace RumbleRain {
 			VibrationInfo vibrationInfo = new VibrationInfo(TimeSpan.FromSeconds(baseSeconds * percentageOfHealthDamaged));
 
 			if (didPlayerDealDamage && ConfigManager.IsRewardingEnabled.Value) {
-				vibrationInfo.Intensity = ConfigManager.VibrationIntensityMultiplierOnDamageDealt.Value * percentageOfHealthDamaged;
+				vibrationInfo.Intensity = ConfigManager.DamageDealtBaseVibrationIntensity.Value * percentageOfHealthDamaged;
 				DeviceManager.SendVibrationInfo(vibrationInfo);
 			}
 			if (didPlayerReceiveDamage && ConfigManager.IsPunishingEnabled.Value) {
-				vibrationInfo.Intensity = ConfigManager.VibrationIntensityMultiplierOnDamageReceived.Value * percentageOfHealthDamaged;
+				vibrationInfo.Intensity = ConfigManager.DamageReceivedBaseVibrationIntensity.Value * percentageOfHealthDamaged;
 				DeviceManager.SendVibrationInfo(vibrationInfo);
 			}
 		}
