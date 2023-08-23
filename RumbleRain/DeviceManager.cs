@@ -16,8 +16,6 @@ namespace RumbleRain {
 	/// </summary>
 	internal class DeviceManager {
 
-		private readonly static TimeSpan VibrationPollingRate = TimeSpan.FromSeconds(ConfigManager.PollingRateSeconds.Value);
-
 		private ManualLogSource Logger { get; set; }
 		private ButtplugClient ButtplugClient { get; set; }
 		private List<ButtplugClientDevice> ConnectedDevices { get; set; }
@@ -34,6 +32,7 @@ namespace RumbleRain {
 			Logger.LogInfo("BP client created for " + clientName);
 			ButtplugClient.DeviceAdded += HandleDeviceAdded;
 			ButtplugClient.DeviceRemoved += HandleDeviceRemoved;
+
 			DevicesAreStopped = true;
 		}
 
@@ -57,9 +56,10 @@ namespace RumbleRain {
 		/// Causes the connected devices to vibrate according to periodically performed calculations.
 		/// </summary>
 		internal IEnumerator PollVibrations() {
-			Logger.LogInfo($"Beginning polling every {VibrationPollingRate.TotalSeconds} seconds");
+			Logger.LogInfo($"Beginning polling every {ConfigManager.PollingRateSeconds.Value} seconds");
 			while (true) {
-				yield return new WaitForSeconds((float)VibrationPollingRate.TotalSeconds);
+				float secondsToWaitFor = ConfigManager.PollingRateSeconds.Value; // calculations become desynced if updated while waiting
+				yield return new WaitForSeconds(secondsToWaitFor);
 
 				if (!ButtplugClient.Connected || (VibrationInfoProvider.VibrationInfo.IsImpotent() && DevicesAreStopped)) {
 					continue;
@@ -70,7 +70,7 @@ namespace RumbleRain {
 
 				Logger.LogDebug($"{VibrationInfoProvider.VibrationInfo} from {VibrationInfoProvider}");
 				VibrateConnectedDevices(VibrationInfoProvider.VibrationInfo.Intensity);
-				VibrationInfoProvider.UpdateVibrationInfo(VibrationPollingRate);
+				VibrationInfoProvider.UpdateVibrationInfo(TimeSpan.FromSeconds(secondsToWaitFor));
 			}
 		}
 

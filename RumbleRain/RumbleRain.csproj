@@ -121,6 +121,9 @@
     <Reference Include="Rewired_CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RiskOfRain2.GameLibs.1.2.4-r.0\lib\netstandard2.0\Rewired_CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="RiskOfOptions">
+      <HintPath>..\packages\RiskOfOptions.dll</HintPath>
+    </Reference>
     <Reference Include="RoR2, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RiskOfRain2.GameLibs.1.2.4-r.0\lib\netstandard2.0\RoR2.dll</HintPath>
     </Reference>

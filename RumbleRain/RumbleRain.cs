@@ -8,6 +8,7 @@ using R2API.Utils;
 
 namespace RumbleRain {
 	[BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+	[BepInDependency("com.rune580.riskofoptions")]
 	[NetworkCompatibility(CompatibilityLevel.NoNeedForSync)]
 	public class RumbleRain : BaseUnityPlugin {
 
