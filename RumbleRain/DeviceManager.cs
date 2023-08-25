@@ -21,10 +21,16 @@ namespace RumbleRain {
 		private List<ButtplugClientDevice> ConnectedDevices { get; set; }
 		private bool DevicesAreStopped { get; set; }
 
-		private VibrationInfoProvider VibrationInfoProvider { get; set; }
+		private VibrationInfoProvider _vibrationInfoProvider;
+		internal VibrationInfoProvider VibrationInfoProvider {
+			get => _vibrationInfoProvider;
+			set {
+				StopConnectedDevices();
+				_vibrationInfoProvider = value;
+			}
+		}
 
 		public DeviceManager(VibrationInfoProvider vibrationInfoProvider, ManualLogSource logger, string clientName = "RumbleRain") {
-			VibrationInfoProvider = vibrationInfoProvider;
 			Logger = logger;
 
 			ConnectedDevices = new List<ButtplugClientDevice>();
@@ -33,6 +39,7 @@ namespace RumbleRain {
 			ButtplugClient.DeviceAdded += HandleDeviceAdded;
 			ButtplugClient.DeviceRemoved += HandleDeviceRemoved;
 
+			VibrationInfoProvider = vibrationInfoProvider;
 			DevicesAreStopped = true;
 		}
 
@@ -74,8 +81,8 @@ namespace RumbleRain {
 		}
 
 		/// <summary>
-		/// Updates the calculations used in <c>PollVibrations</c> and immediately
-		/// causes the connected devices to vibrate with the given <paramref name="vibrationInfo"/>.
+		/// Updates the <c>VibrationInfoProvider</c> with the given <paramref name="vibrationInfo"/>
+		/// and immediately causes the connected devices to vibrate with the newly provided info.
 		/// </summary>
 		internal void SendVibrationInfo(VibrationInfo vibrationInfo) {
 			VibrationInfoProvider.Input(vibrationInfo);

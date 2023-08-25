@@ -134,7 +134,10 @@ namespace RumbleRain {
 				VibrationInfoProvider.VibrationBehavior.AdditiveWithLinearDecay,
 				"How vibrations should handle new information and evolve over time."
 			);
-			ModSettingsManager.AddOption(new ChoiceOption(VibrationBehavior, true));
+			VibrationBehavior.SettingChanged += (object sender, EventArgs args) => {
+				RumbleRain.DeviceManager.VibrationInfoProvider = From(VibrationBehavior.Value);
+			};
+			ModSettingsManager.AddOption(new ChoiceOption(VibrationBehavior));
 
 			AllowExcessDamage = VibrationConfigFile.Bind(
 				"Vibration Behavior",

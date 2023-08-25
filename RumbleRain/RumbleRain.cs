@@ -6,6 +6,8 @@ using BepInEx;
 using RoR2;
 using R2API.Utils;
 
+using static RumbleRain.VibrationInfoProvider;
+
 namespace RumbleRain {
 	[BepInPlugin(PluginGUID, PluginName, PluginVersion)]
 	[BepInDependency("com.rune580.riskofoptions")]
@@ -17,13 +19,12 @@ namespace RumbleRain {
 		public const string PluginName = "RumbleRain";
 		public const string PluginVersion = "0.1.0";
 
-		private PlayerCharacterMasterController LocalPlayerController { get; set; }
-		private DeviceManager DeviceManager { get; set; }
+		internal static DeviceManager DeviceManager { get; private set; }
 
 		public void Awake() {
 			Logger.LogInfo("Performing setup for RumbleRain");
 
-			VibrationInfoProvider vibrationInfoProvider = VibrationInfoProvider.From(ConfigManager.VibrationBehavior.Value);
+			VibrationInfoProvider vibrationInfoProvider = From(ConfigManager.VibrationBehavior.Value);
 			DeviceManager = new DeviceManager(vibrationInfoProvider, Logger);
 			DeviceManager.ConnectDevices();
 
@@ -38,8 +39,8 @@ namespace RumbleRain {
 		private void VibrateDevicesOnDamage(DamageDealtMessage damageMessage) {
 			if (damageMessage.victim == null) { return; }
 
-			LocalPlayerController = LocalUserManager.GetFirstLocalUser().cachedMasterController;
-			GameObject playerBody = LocalPlayerController.master.GetBodyObject();
+			PlayerCharacterMasterController playerController = LocalUserManager.GetFirstLocalUser().cachedMasterController;
+			GameObject playerBody = playerController.master.GetBodyObject();
 			bool didPlayerReceiveDamage = playerBody == damageMessage.victim;
 			bool didPlayerDealDamage = playerBody == damageMessage.attacker;
 
