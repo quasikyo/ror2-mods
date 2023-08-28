@@ -1,6 +1,6 @@
 {
 	"name": "RumbleRain",
-	"version_number": "0.1.0",
+	"version_number": "0.2.0",
 	"website_url": "https://github.com/quasikyo/rumble-rain",
 	"description": "Vibrates BPio-capable devices in response to in-game damage events.",
 	"dependencies": [
