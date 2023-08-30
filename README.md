@@ -21,16 +21,15 @@ Before launching the game, start an [Intiface Central](https://intiface.com/cent
 - Duration of vibrations
 - Vibration falloff
 
-The config file and in-game [Risk Of Options]() menu provide descriptions and valid values for each of the specific options.
+The config file and in-game [Risk Of Options](https://thunderstore.io/package/Rune580/Risk_Of_Options) menu provide descriptions and valid values for each of the specific options.
 
 ## Issue Reporting and Suggestions
-Submit a new issue [here](https://github.com/quasikyo/rumble-rain/issues).
+Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/rumble-rain/issues).
 
 ## Note About Pre-releases
 I aim to have all releases of this mod be stable. v1.0.0 will be released once I have added all the features I have envisioned.
 
 I would like to support the following before v1.0.0:
-- Kill switch
 - Heal events
 - Able to set negative intensities to reduce vibration
 - and potentially more.
