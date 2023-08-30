@@ -65,16 +65,18 @@ namespace RumbleRain {
 		internal IEnumerator PollVibrations() {
 			Logger.LogInfo($"Beginning polling every {ConfigManager.PollingRateSeconds.Value} seconds");
 			while (true) {
-				float secondsToWaitFor = ConfigManager.PollingRateSeconds.Value; // calculations become desynced if updated while waiting
+				// calculations become desynced if updated while waiting so snapshot the value
+				float secondsToWaitFor = ConfigManager.PollingRateSeconds.Value;
 				yield return new WaitForSeconds(secondsToWaitFor);
 
-				if (!ButtplugClient.Connected || (VibrationInfoProvider.VibrationInfo.IsImpotent() && DevicesAreStopped)) {
+				if (!ButtplugClient.Connected || DevicesAreStopped) {
 					continue;
 				} else if (VibrationInfoProvider.VibrationInfo.IsImpotent() && !DevicesAreStopped) {
 					StopConnectedDevices();
 					continue;
 				}
 
+				Logger.LogDebug($"{VibrationInfoProvider.VibrationInfo}");
 				VibrationInfoProvider.UpdateVibrationInfo(TimeSpan.FromSeconds(secondsToWaitFor));
 				VibrateConnectedDevices(VibrationInfoProvider.VibrationInfo.Intensity);
 			}
@@ -112,6 +114,18 @@ namespace RumbleRain {
 		private void StopConnectedDevices() {
 			ConnectedDevices.ForEach(async device => await device.Stop());
 			DevicesAreStopped = true;
+		}
+
+		/// <summary>
+		///	Convenience method for toggling the devices on and off.
+		/// </summary>
+		internal void ToggleConnectedDevices() {
+			bool devicesNeedToBeStopped = !DevicesAreStopped;
+			if (devicesNeedToBeStopped) {
+				StopConnectedDevices();
+			} else {
+				VibrateConnectedDevices(VibrationInfoProvider.VibrationInfo.Intensity);
+			}
 		}
 
 		/// <summary>

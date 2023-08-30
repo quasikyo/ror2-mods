@@ -36,6 +36,12 @@ namespace RumbleRain {
 			GlobalEventManager.onClientDamageNotified += VibrateDevicesOnDamage;
 		}
 
+		public void Update() {
+			if (ConfigManager.ToggleVibrationKeybind.Value.IsDown()) {
+				DeviceManager.ToggleConnectedDevices();
+			}
+		}
+
 		private void VibrateDevicesOnDamage(DamageDealtMessage damageMessage) {
 			if (damageMessage.victim == null) { return; }
 

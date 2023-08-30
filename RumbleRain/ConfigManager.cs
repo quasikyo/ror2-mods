@@ -8,6 +8,7 @@ using RiskOfOptions.Options;
 using RiskOfOptions.OptionConfigs;
 
 using static RumbleRain.VibrationInfoProvider;
+using UnityEngine;
 
 namespace RumbleRain {
 	internal static class ConfigManager {
@@ -27,6 +28,8 @@ namespace RumbleRain {
 
 		internal static ConfigEntry<VibrationBehavior> VibrationBehavior { get; set; }
 		internal static ConfigEntry<bool> AllowExcessDamage { get; set; }
+
+		internal static ConfigEntry<KeyboardShortcut> ToggleVibrationKeybind { get; set; }
 
 		static ConfigManager() {
 			VibrationConfigFile = new ConfigFile(Paths.ConfigPath + "\\RumbleRain.cfg", true);
@@ -164,6 +167,14 @@ namespace RumbleRain {
 				"Allow for excess damage dealt over an entity's max combined health to affect vibrations."
 			);
 			ModSettingsManager.AddOption(new CheckBoxOption(AllowExcessDamage));
+
+			ToggleVibrationKeybind = VibrationConfigFile.Bind(
+				"Keybinds",
+				"Toggle Devices",
+				new KeyboardShortcut(KeyCode.LeftControl, KeyCode.LeftAlt, KeyCode.LeftShift, KeyCode.S),
+				"This keybind will toggle devices to be active or not. See the Properties section at https://docs.unity3d.com/ScriptReference/KeyCode.html for expected values."
+			);
+			ModSettingsManager.AddOption(new KeyBindOption(ToggleVibrationKeybind));
 		}
 	}
 }
