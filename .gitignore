@@ -397,7 +397,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-# Helper bash script
-build-debug.sh
-
-.vscode/
+# Building stuff
+Thunderstore/README.md
+Thunderstore/plugins
