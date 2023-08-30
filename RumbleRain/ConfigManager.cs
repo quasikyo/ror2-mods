@@ -156,7 +156,7 @@ namespace RumbleRain {
 				"How vibrations should handle new information and evolve over time."
 			);
 			VibrationBehavior.SettingChanged += (object sender, EventArgs args) => {
-				RumbleRain.DeviceManager.VibrationInfoProvider = From(VibrationBehavior.Value);
+				RumbleRain.DeviceManager.InfoProvider = From(VibrationBehavior.Value);
 			};
 			ModSettingsManager.AddOption(new ChoiceOption(VibrationBehavior));
 

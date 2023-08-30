@@ -11,10 +11,10 @@ namespace RumbleRain {
 			AdditiveWithExponentialDecay
 		}
 
-		protected internal VibrationInfo VibrationInfo { get; set; }
+		protected internal VibrationInfo Info { get; set; }
 
 		protected internal VibrationInfoProvider() {
-			VibrationInfo = new VibrationInfo();
+			Info = new VibrationInfo();
 		}
 
 		protected internal static VibrationInfoProvider From(VibrationBehavior vibrationBehavior) {
@@ -43,7 +43,7 @@ namespace RumbleRain {
 		/// Sets the <c>VibrationInfoProvider</c> to its inital state.
 		/// </summary>
 		protected internal virtual void Reset() {
-			VibrationInfo = new VibrationInfo();
+			Info = new VibrationInfo();
 		}
 	}
 
@@ -52,8 +52,8 @@ namespace RumbleRain {
 	/// </summary>
 	internal class AdditiveInfoProviderWithLinearDecay : VibrationInfoProvider {
 		protected internal override void Input(VibrationInfo newVibrationInfo) {
-			VibrationInfo += newVibrationInfo;
-			VibrationInfo.SnapshotValues();
+			Info += newVibrationInfo;
+			Info.SnapshotValues();
 		}
 
 		protected internal override void UpdateVibrationInfo(TimeSpan timeSinceLastUpdate) {
@@ -63,9 +63,9 @@ namespace RumbleRain {
 			//VibrationInfo.Intensity *= intensityScalar;
 			//VibrationInfo.Duration = remainingDuration;
 
-			VibrationInfo.Duration -= timeSinceLastUpdate;
-			double intensityScalar = VibrationInfo.Duration.TotalSeconds / VibrationInfo.DurationSnapshot.TotalSeconds;
-			VibrationInfo.Intensity = VibrationInfo.IntensitySnapshot * intensityScalar;
+			Info.Duration -= timeSinceLastUpdate;
+			double intensityScalar = Info.Duration.TotalSeconds / Info.DurationSnapshot.TotalSeconds;
+			Info.Intensity = Info.IntensitySnapshot * intensityScalar;
 		}
 	}
 
@@ -74,14 +74,14 @@ namespace RumbleRain {
 	/// </summary>
 	internal class AdditiveInfoProvierWithExponentialDecay : VibrationInfoProvider {
 		protected internal override void Input(VibrationInfo newVibrationInfo) {
-			VibrationInfo += newVibrationInfo;
-			VibrationInfo.SnapshotValues();
+			Info += newVibrationInfo;
+			Info.SnapshotValues();
 		}
 
 		protected internal override void UpdateVibrationInfo(TimeSpan timeSinceLastUpdate) {
-			VibrationInfo.Duration -= timeSinceLastUpdate;
-			double intensityScalar = VibrationInfo.Duration.TotalSeconds / VibrationInfo.DurationSnapshot.TotalSeconds;
-			VibrationInfo.Intensity *= intensityScalar;
+			Info.Duration -= timeSinceLastUpdate;
+			double intensityScalar = Info.Duration.TotalSeconds / Info.DurationSnapshot.TotalSeconds;
+			Info.Intensity *= intensityScalar;
 		}
 	}
 }

@@ -22,10 +22,11 @@ namespace RumbleRain {
 		internal static DeviceManager DeviceManager { get; private set; }
 
 		public void Awake() {
-			Logger.LogInfo("Performing setup for RumbleRain");
+			Log.Init(Logger);
+			Log.Info($"Performing setup for ${nameof(RumbleRain)}");
 
 			VibrationInfoProvider vibrationInfoProvider = From(ConfigManager.VibrationBehavior.Value);
-			DeviceManager = new DeviceManager(vibrationInfoProvider, Logger);
+			DeviceManager = new DeviceManager(vibrationInfoProvider, nameof(RumbleRain));
 			DeviceManager.ConnectDevices();
 
 			Run.onRunStartGlobal += (Run _) => { StartCoroutine(DeviceManager.PollVibrations()); };
@@ -38,6 +39,7 @@ namespace RumbleRain {
 
 		public void Update() {
 			if (ConfigManager.ToggleVibrationKeybind.Value.IsDown()) {
+				Log.Debug($"Toggle hotkey {ConfigManager.ToggleVibrationKeybind.Value} pressed");
 				DeviceManager.ToggleConnectedDevices();
 			}
 		}
