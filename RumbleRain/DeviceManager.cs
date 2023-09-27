@@ -131,7 +131,7 @@ namespace RumbleRain {
 		/// <summary>
 		/// Stops all connected devices and sets internal state to <paramref name="newState"/>.
 		/// </summary>
-		/// <param name="newState">Either or <c>Inactive</c> or <c>Paused</c>.</param>
+		/// <param name="newState">Either <c>Inactive</c> or <c>Paused</c>.</param>
 		private void StopConnectedDevices(DeviceState newState = DeviceState.Inactive) {
 			if (newState == DeviceState.Active) {
 				throw new ArgumentException($"{nameof(newState)}={newState} is invalid. Expecting {DeviceState.Inactive} or {DeviceState.Active}.");
@@ -176,10 +176,7 @@ namespace RumbleRain {
 		}
 
 		private void HandleDeviceRemoved(object sender, DeviceRemovedEventArgs args) {
-			if (!IsVibratableDevice(args.Device)) {
-				Log.Info($"{args.Device.Name} was detected but ignored due to it not being vibratable.");
-				return;
-			}
+			if (!IsVibratableDevice(args.Device)) { return; }
 
 			Log.Info($"{args.Device.Name} disconnected from client {ButtplugClient.Name}");
 			ConnectedDevices.Remove(args.Device);
