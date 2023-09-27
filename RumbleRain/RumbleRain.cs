@@ -15,7 +15,7 @@ namespace RumbleRain {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "RumbleRain";
-		public const string PluginVersion = "0.3.0";
+		public const string PluginVersion = "0.3.1";
 
 		internal static DeviceManager DeviceManager { get; private set; }
 
@@ -34,7 +34,7 @@ namespace RumbleRain {
 				DeviceManager.CleanUp();
 			};
 
-            On.RoR2.PauseManager.CCTogglePause += (a, b) => { };
+            // On.RoR2.PauseManager.CCTogglePause += (a, b) => { };
 			GlobalEventManager.onClientDamageNotified += VibrateDevicesOnDamage;
 		}
 

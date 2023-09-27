@@ -69,15 +69,16 @@ namespace RumbleRain {
 		/// Connects to the ButtplugClient and begins scanning for and connecting found devices.
 		/// </summary>
 		public async void ConnectDevices() {
+			if (ButtplugClient.Connected) { return; }
+
 			try {
 				Log.Info($"Attempting to connect to Intiface server at \"{ConfigManager.ServerUri.Value}\"");
 				await ButtplugClient.ConnectAsync(new ButtplugWebsocketConnector(new Uri(ConfigManager.ServerUri.Value)));
 				Log.Info("Connection successful. Beginning scan for devices");
 				await ButtplugClient.StartScanningAsync();
-			} catch (ButtplugHandshakeException exception) {
-				Log.Error($"Attempt to connect to Intiface server failed: {exception}");
 			} catch (ButtplugException exception) {
-				Log.Error($"ButtplugIO error occured while connecting devices: {exception}");
+				Log.Error($"Attempt to connect to devices failed. Ensure Intiface is running and attempt to reconnect from the 'Devices' section in the mod's in-game settings.");
+				Log.Debug($"ButtplugIO error occured while connecting devices: {exception}");
 			}
 		}
 

@@ -9,6 +9,7 @@ using RiskOfOptions.OptionConfigs;
 
 using static RumbleRain.VibrationInfoProvider;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RumbleRain {
 	internal static class ConfigManager {
@@ -57,6 +58,14 @@ namespace RumbleRain {
 					new StepSliderConfig() { min = 0.1f, max = 3f, increment = 0.1f }
 				)
 			);
+
+			ModSettingsManager.AddOption(new GenericButtonOption(
+				"Connect Devices",
+				"Devices",
+				"Attempts to connect to the Intiface server.",
+				"Connect",
+				() => RumbleRain.DeviceManager.ConnectDevices()
+			));
 
 			IsRewardingEnabled = VibrationConfigFile.Bind(
 				"Activated By",
