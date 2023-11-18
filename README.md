@@ -30,7 +30,8 @@ Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.c
 I aim to have all releases of this mod be stable. v1.0.0 will be released once I have added all the features I have envisioned.
 
 I would like to support the following before v1.0.0:
-- Heal events
+- ~~Heal events~~
+  - On the back-burner due to networking requirement.
 - Able to set negative intensities to reduce vibration
 - and potentially more.
 

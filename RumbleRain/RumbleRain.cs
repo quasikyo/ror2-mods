@@ -15,7 +15,7 @@ namespace RumbleRain {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "RumbleRain";
-		public const string PluginVersion = "0.3.1";
+		public const string PluginVersion = "0.4.0";
 
 		internal static DeviceManager DeviceManager { get; private set; }
 
@@ -50,18 +50,21 @@ namespace RumbleRain {
 			Log.Debug($"Attacker: {damageMessage.attacker?.ToString() ?? "reduced to atoms"}");
 			if (damageMessage.victim == null) { return; }
 
-			PlayerCharacterMasterController playerController = LocalUserManager.GetFirstLocalUser().cachedMasterController;
-			CharacterBody player = playerController.master.GetBody();
+			CharacterMaster playerMaster = LocalUserManager.GetFirstLocalUser().cachedMaster;
+			CharacterBody player = playerMaster.GetBody();
 			CharacterBody victim = damageMessage.victim.GetComponent<CharacterBody>();
 			CharacterBody attacker = damageMessage.attacker?.GetComponent<CharacterBody>();
 
-			bool didPlayerReceiveDamage = player == victim;
-			bool didPlayerDealDamage = player == attacker;
 			float victimMaxHealth = victim.healthComponent.fullCombinedHealth;
 			float percentageOfMaxHealthDamaged = damageMessage.damage / victimMaxHealth;
 			if (!ConfigManager.AllowExcessDamage.Value) {
 				percentageOfMaxHealthDamaged = Math.Min(percentageOfMaxHealthDamaged, 1);
 			}
+
+			bool didPlayerDealDamage = player == attacker;
+			bool didPlayerReceiveDamage = player == victim;
+			bool didPlayerMinionDealDamage = attacker.master.minionOwnership.ownerMaster == playerMaster;
+			bool didPlayerMinionReceiveDamage = victim.master.minionOwnership.ownerMaster == playerMaster;
 
 			Log.Debug($"{attacker} dealt {damageMessage.damage} ({percentageOfMaxHealthDamaged * 100}%) to {victim} max {victimMaxHealth}.");
 			Log.Debug($"Was victim local player? {didPlayerReceiveDamage}");
@@ -69,11 +72,11 @@ namespace RumbleRain {
 
 			double baseSeconds = ConfigManager.BaseVibrationDurationSeconds.Value;
 			VibrationInfo vibrationInfo = new VibrationInfo(TimeSpan.FromSeconds(baseSeconds * percentageOfMaxHealthDamaged));
-			if (didPlayerDealDamage && ConfigManager.IsRewardingEnabled.Value) {
+			if ((didPlayerDealDamage && ConfigManager.IsRewardingEnabled.Value) || (didPlayerMinionDealDamage && ConfigManager.IsMinionRewardingEnabled.Value)) {
 				vibrationInfo.Intensity = ConfigManager.DamageDealtBaseVibrationIntensity.Value * percentageOfMaxHealthDamaged;
 				DeviceManager.SendVibrationInfo(vibrationInfo);
 			}
-			if (didPlayerReceiveDamage && ConfigManager.IsPunishingEnabled.Value) {
+			if ((didPlayerReceiveDamage && ConfigManager.IsPunishingEnabled.Value) || (didPlayerMinionReceiveDamage && ConfigManager.IsMinionPunishingEnabled.Value)) {
 				vibrationInfo.Intensity = ConfigManager.DamageReceivedBaseVibrationIntensity.Value * percentageOfMaxHealthDamaged;
 				DeviceManager.SendVibrationInfo(vibrationInfo);
 			}

@@ -9,7 +9,6 @@ using RiskOfOptions.OptionConfigs;
 
 using static RumbleRain.VibrationInfoProvider;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace RumbleRain {
 	internal static class ConfigManager {
@@ -20,6 +19,8 @@ namespace RumbleRain {
 
 		internal static ConfigEntry<bool> IsRewardingEnabled { get; set; }
 		internal static ConfigEntry<bool> IsPunishingEnabled { get; set; }
+		internal static ConfigEntry<bool> IsMinionRewardingEnabled { get; set; }
+		internal static ConfigEntry<bool> IsMinionPunishingEnabled { get; set; }
 
 		internal static ConfigEntry<float> DamageDealtBaseVibrationIntensity { get; set; }
 		internal static ConfigEntry<float> DamageReceivedBaseVibrationIntensity { get; set; }
@@ -82,6 +83,22 @@ namespace RumbleRain {
 				"Receive vibrations when receiving damage."
 			);
 			ModSettingsManager.AddOption(new CheckBoxOption(IsPunishingEnabled));
+
+			IsMinionRewardingEnabled = VibrationConfigFile.Bind(
+				"Activated By",
+				"Minions Dealing Damage",
+				false,
+				"Receive vibrations when your minions (drones, turrets, etc.) deal damage."
+			);
+			ModSettingsManager.AddOption(new CheckBoxOption(IsMinionRewardingEnabled));
+
+			IsMinionPunishingEnabled = VibrationConfigFile.Bind(
+				"Activated By",
+				"Minions Receiving Damage",
+				false,
+				"Receive vibrations when your minions (drones, turrets, etc.) receive damage."
+			);
+			ModSettingsManager.AddOption(new CheckBoxOption(IsMinionPunishingEnabled));
 
 			DamageDealtBaseVibrationIntensity = VibrationConfigFile.Bind(
 				"Vibration Values",
