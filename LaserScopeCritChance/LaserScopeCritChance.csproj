@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.0.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="BepInEx.Core" Version="5.4.21" />
+		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.2.4-r.0" />
+		<PackageReference Include="R2API.Core" Version="5.0.10" />
+		<PackageReference Include="R2API.RecalculateStats" Version="1.2.0" />
+		<PackageReference Include="R2API.Language" Version="1.0.1" />
+		<PackageReference Include="UnityEngine.Modules" Version="2019.4.26" />
+	</ItemGroup>
+</Project>

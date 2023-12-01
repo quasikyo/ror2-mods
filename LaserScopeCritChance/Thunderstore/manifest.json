@@ -1,0 +1,10 @@
+{
+	"name": "LaserScopeCritChance",
+	"version_number": "1.0.0",
+	"website_url": "https://github.com/quasikyo/laser-scope-crit-chance",
+	"description": "Mod that makes the red item Laser Scope give a 5% crit chance bonus similar to Predatory Instincts, Harvester's Scythe, and Shatterspleen.",
+	"dependencies": [
+		"bbepis-BepInExPack-5.4.2113",
+		"tristanmcpherson-R2API-5.0.5"
+	]
+}
