@@ -5,7 +5,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<!-- provided by RoR2 modding environment -->
 		<PackageReference Include="BepInEx.Core" Version="5.4.21" />
+		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.2.4-r.0" />
+		<PackageReference Include="R2API.Core" Version="5.0.10" />
+		<PackageReference Include="UnityEngine.Modules" Version="2019.4.26" />
+		<Reference Include="..\libs\RiskOfOptions\2.7.1\RiskOfOptions.dll" />
+
+		<!-- used to compile RumbleRain.dll -->
 		<PackageReference Include="Costura.Fody" Version="5.7.0">
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
@@ -13,12 +20,10 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.2.4-r.0" />
-		<PackageReference Include="R2API.Core" Version="5.0.10" />
-		<PackageReference Include="UnityEngine.Modules" Version="2019.4.26" />
+
+		<!-- compiled with RumbleRain.dll -->
 		<PackageReference Include="Buttplug" Version="3.0.1" />
 		<PackageReference Include="Buttplug.Client.Connectors.WebsocketConnector" Version="3.0.1" />
 		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-		<Reference Include="..\libs\RiskOfOptions.dll" />
 	</ItemGroup>
 </Project>

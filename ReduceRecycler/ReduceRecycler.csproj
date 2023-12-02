@@ -13,6 +13,6 @@
 		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.2.4-r.0" />
 		<PackageReference Include="R2API.Core" Version="5.0.10" />
 		<PackageReference Include="UnityEngine.Modules" Version="2019.4.26" />
-		<Reference Include="..\libs\RiskOfOptions.dll" />
+		<Reference Include="..\libs\RiskOfOptions\2.7.1\RiskOfOptions.dll" />
 	</ItemGroup>
 </Project>
