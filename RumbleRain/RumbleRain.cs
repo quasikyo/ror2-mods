@@ -15,7 +15,7 @@ namespace RumbleRain {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "RumbleRain";
-		public const string PluginVersion = "0.4.0";
+		public const string PluginVersion = "0.4.1";
 
 		internal static DeviceManager DeviceManager { get; private set; }
 
@@ -63,7 +63,7 @@ namespace RumbleRain {
 
 			bool didPlayerDealDamage = player == attacker;
 			bool didPlayerReceiveDamage = player == victim;
-			bool didPlayerMinionDealDamage = attacker.master.minionOwnership.ownerMaster == playerMaster;
+			bool didPlayerMinionDealDamage = attacker?.master.minionOwnership.ownerMaster == playerMaster;
 			bool didPlayerMinionReceiveDamage = victim.master.minionOwnership.ownerMaster == playerMaster;
 
 			Log.Debug($"{attacker} dealt {damageMessage.damage} ({percentageOfMaxHealthDamaged * 100}%) to {victim} max {victimMaxHealth}.");
