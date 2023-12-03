@@ -14,7 +14,10 @@ namespace ThunderRain {
 		internal static ConfigEntry<string> PiShockApiKey { get; set; }
 		internal static ConfigEntry<string> PiShockShareCodes { get; set; }
 
+		internal static ConfigEntry<bool> AllowExcessDamage { get; set; }
+
 		static ConfigManager() {
+		// internal static void Init() {
 			OptionsConfig = new ConfigFile($"{Paths.ConfigPath}\\ThunderRain.cfg", true);
 			ModSettingsManager.SetModDescription("Shocks PiShocks in response to in-game damage events.");
 
@@ -41,6 +44,14 @@ namespace ThunderRain {
 				"Share code generated on PiShock control. Separate each code with a comma."
 			);
 			ModSettingsManager.AddOption(new StringInputFieldOption(PiShockShareCodes));
+
+			AllowExcessDamage = OptionsConfig.Bind(
+				"Vibration Behavior",
+				"Allow For Excess Damage",
+				false,
+				"Allow for excess damage dealt over an entity's max combined health to affect vibrations."
+			);
+			ModSettingsManager.AddOption(new CheckBoxOption(AllowExcessDamage));
 		}
 	}
 }
