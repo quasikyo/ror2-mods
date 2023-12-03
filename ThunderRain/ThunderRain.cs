@@ -56,11 +56,11 @@ namespace ThunderRain {
 			};
 			if (didPlayerDealDamage) {
 				values.Intensity = (int) (15 * percentageOfMaxHealthDamaged);
-				DeviceManager.OperateUniform(PiShockOperation.Shock, values);
+				DeviceManager.Operate(PiShockOperation.Shock, values);
 			}
 			if (didPlayerReceiveDamage) {
 				values.Intensity = (int) (15 * percentageOfMaxHealthDamaged);
-				DeviceManager.OperateUniform(PiShockOperation.Shock, values);
+				DeviceManager.Operate(PiShockOperation.Shock, values);
 			}
 		}
 	}

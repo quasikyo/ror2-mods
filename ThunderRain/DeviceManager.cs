@@ -3,19 +3,41 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using R2API.Utils;
 
 namespace ThunderRain {
 
+	/// <summary>
+	/// Manages connection and sends operations to PiShock.
+	/// </summary>
 	internal class DeviceManager {
 
 		private const string PiShockApiUri = "https://do.pishock.com/api/apioperate/";
-		private static HttpClient HttpClient = new HttpClient() {
+		private static readonly HttpClient HttpClient = new HttpClient() {
 			BaseAddress = new Uri(PiShockApiUri)
 		};
 
+		/// <summary>
+		/// The name used to send operations.
+		/// </summary>
 		internal string DisplayName { get; private set; }
+		/// <summary>
+		/// List of shockers that operations can be sent to.
+		/// </summary>
 		private PiShockShocker[] Shockers { get; set; }
+
+		/// <summary>
+		/// Controls which shockers are selected when operations are sent.
+		/// </summary>
+		internal enum ShockerSelection {
+			/// <summary>
+			/// Operation is sent to all shockers.
+			/// </summary>
+			All,
+			/// <summary>
+			/// Operation is sent to a random shocker.
+			/// </summary>
+			Random
+		}
 
 		public DeviceManager(string displayName) {
 			DisplayName = displayName;
@@ -30,24 +52,42 @@ namespace ThunderRain {
 					.Select(code => new PiShockShocker(code.Trim()))
 					.ToArray();
 			Log.Debug($"Amount of shockers: {Shockers.Length}");
-			Array.ForEach(Shockers, (shocker) => Log.Debug($"Shocker share code: {shocker.ShareCode}"));
+			foreach (PiShockShocker shocker in Shockers) {
+				Log.Debug($"Shocker share code: {shocker.ShareCode}");
+			};
         }
 
 		private PiShockShocker GetRandomShocker() {
 			return Shockers[new Random().Next(0, Shockers.Length)];
 		}
 
-        internal void OperateUniform(PiShockOperation operation, PiShockValues values) {
-			Array.ForEach(Shockers, (PiShockShocker shocker) => {
-				SendCommand(operation, values, shocker);
-			});
+		/// <summary>
+		/// Selects a shocker to be sent a shock, vibrate, or beep <paramref name="operation"/>.
+		/// The duration and intensity are determined by <paramref name="values"/>.
+		/// </summary>
+		/// <param name="operation">Shock, vibrate, or beep.</param>
+		/// <param name="values">Duration and intensity of the operation.</param>
+        internal void Operate(PiShockOperation operation, PiShockValues values) {
+			switch (ConfigManager.ShockerSelection.Value) {
+				case ShockerSelection.All:
+					foreach (PiShockShocker shocker in Shockers) {
+						SendOperation(operation, values, shocker);
+					};
+					break;
+				case ShockerSelection.Random:
+					SendOperation(operation, values, GetRandomShocker());
+					break;
+			}
 		}
 
-		internal void OperateRandom(PiShockOperation operation, PiShockValues values) {
-			SendCommand(operation, values, GetRandomShocker());
-		}
-
-		async private void SendCommand(PiShockOperation operation, PiShockValues values, PiShockShocker shocker) {
+		/// <summary>
+		/// Composes and sends an API request to execute
+		/// <paramref name="operation"/> on a <paramref name="shocker"/>.
+		/// </summary>
+		/// <param name="operation">Shock, vibrate, or beep.</param>
+		/// <param name="values">Duration and intensity of the operation.</param>
+		/// <param name="shocker">Which shocker to send the operation to.</param>
+		async private void SendOperation(PiShockOperation operation, PiShockValues values, PiShockShocker shocker) {
 			// string requestContent = JsonSerializer.Serialize(new PiShockRequest { // why no worky?
 			string requestContent = JsonSerializer.Serialize(new {
 				Username = ConfigManager.PiShockUsername.Value,
@@ -69,7 +109,7 @@ namespace ThunderRain {
 					Log.Debug("Request successful");
 					break;
 				default:
-					Log.Error("Request failed for reason: ");
+					Log.Error($"Request failed for reason: {responseContent}");
 					break;
 			}
 		}
