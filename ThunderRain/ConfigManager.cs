@@ -36,6 +36,11 @@ namespace ThunderRain {
 
 		internal static ConfigEntry<int> ReceivingDamageBaseVibrationIntensity { get; set; }
 		internal static ConfigEntry<int> ReceivingDamageBaseShockIntensity { get; set; }
+
+		// internal static ConfigEntry<int> MinionsDealingDamageBaseVibrationIntensity { get; set; }
+		// internal static ConfigEntry<int> MinionsDealingDamageBaseShockIntensity { get; set; }
+		// internal static ConfigEntry<int> MinionsReceivingDamageBaseVibrationIntensity { get; set; }
+		// internal static ConfigEntry<int> MinionsReceivingDamageBaseShockIntensity { get; set; }
 		#endregion
 
 		#region Operation Behavior

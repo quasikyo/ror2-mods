@@ -50,16 +50,28 @@ namespace ThunderRain {
 			Log.Debug($"Was victim local player? {didPlayerReceiveDamage}");
 			Log.Debug($"Was attacker local player? {didPlayerDealDamage}");
 
-			// double baseSeconds = ConfigManager.BaseVibrationDurationSeconds.Value;
-			PiShockValues values = new PiShockValues {
-				Duration = TimeSpan.FromSeconds(1)
-			};
-			if (didPlayerDealDamage) {
-				values.Intensity = (int) (15 * percentageOfMaxHealthDamaged);
+			PiShockValues values = new PiShockValues();
+			if ((didPlayerDealDamage && ConfigManager.VibrationsFromDealingDamage.Value) || (didPlayerMinionDealDamage && ConfigManager.VibrationsFromMinionsDealingDamage.Value)) {
+				values.Duration = TimeSpan.FromSeconds(ConfigManager.BaseVibrationDurationSeconds.Value * percentageOfMaxHealthDamaged);
+				values.Intensity = (int) (ConfigManager.DealingDamageBaseVibrationIntensity.Value * percentageOfMaxHealthDamaged);
+				DeviceManager.Operate(PiShockOperation.Vibrate, values);
+			}
+
+			if ((didPlayerDealDamage && ConfigManager.ShocksFromDealingDamage.Value) || (didPlayerMinionDealDamage && ConfigManager.ShocksFromMinionsDealingDamage.Value)) {
+				values.Duration = TimeSpan.FromSeconds(ConfigManager.BaseShockDurationSeconds.Value * percentageOfMaxHealthDamaged);
+				values.Intensity = (int) (ConfigManager.DealingDamageBaseShockIntensity.Value * percentageOfMaxHealthDamaged);
 				DeviceManager.Operate(PiShockOperation.Shock, values);
 			}
-			if (didPlayerReceiveDamage) {
-				values.Intensity = (int) (15 * percentageOfMaxHealthDamaged);
+
+			if ((didPlayerReceiveDamage && ConfigManager.VibrationsFromReceivingDamage.Value) || (didPlayerMinionReceiveDamage && ConfigManager.VibrationsFromMinionsReceivingDamage.Value)) {
+				values.Duration = TimeSpan.FromSeconds(ConfigManager.BaseVibrationDurationSeconds.Value * percentageOfMaxHealthDamaged);
+				values.Intensity = (int) (ConfigManager.ReceivingDamageBaseVibrationIntensity.Value * percentageOfMaxHealthDamaged);
+				DeviceManager.Operate(PiShockOperation.Vibrate, values);
+			}
+
+			if ((didPlayerReceiveDamage && ConfigManager.ShocksFromReceivingDamage.Value) || (didPlayerMinionReceiveDamage && ConfigManager.ShocksFromMinionsReceivingDamage.Value)) {
+				values.Duration = TimeSpan.FromSeconds(ConfigManager.BaseShockDurationSeconds.Value * percentageOfMaxHealthDamaged);
+				values.Intensity = (int) (ConfigManager.ReceivingDamageBaseShockIntensity.Value * percentageOfMaxHealthDamaged);
 				DeviceManager.Operate(PiShockOperation.Shock, values);
 			}
 		}
