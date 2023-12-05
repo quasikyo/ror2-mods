@@ -41,11 +41,11 @@ namespace ThunderRain {
 		/// <summary>
 		/// Duration of the operation in seconds from <c>[0, 15]</c>.
 		/// </summary>
-		internal float Duration { get; set; }
+		internal int Duration { get; set; }
 		/// <summary>
 		/// Intensity of the operations from <c>[0, 100]</c>.
 		/// </summary>
-		internal float Intensity { get; set; }
+		internal int Intensity { get; set; }
 	}
 
 	/// <summary>
