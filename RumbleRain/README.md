@@ -24,7 +24,7 @@ Before launching the game, start an [Intiface Central](https://intiface.com/cent
 The config file and in-game [Risk Of Options](https://thunderstore.io/package/Rune580/Risk_Of_Options) menu provide descriptions and valid values for each of the specific options.
 
 ## Issue Reporting and Suggestions
-Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/rumble-rain/issues).
+Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
 
 ## Note About Pre-releases
 I aim to have all releases of this mod be stable. v1.0.0 will be released once I have added all the features I have envisioned.
@@ -34,10 +34,6 @@ I would like to support the following before v1.0.0:
   - On the back-burner due to networking requirement.
 - Able to set negative intensities to reduce vibration
 - and potentially more.
-
-## Justification
-There is a [pre-existing mod by MisterKinky](https://thunderstore.io/package/MisterKinky/RiskOfRumble) that also vibrates devices, but it is outdated, no longer maintained, doesn't use Intiface Central, has limited configurability, and will tank your performance. It also is unusable in multiplayer as it doesn't isolate the appropriate user.
-This mod aims to solve all of that.
 
 ## Using Lovense Connect
 If you're having connectivity issues with Bluetooth, Lovense Connect ([iOS](https://apps.apple.com/us/app/lovense-connect/id1273067916), [Android](https://play.google.com/store/apps/details?id=com.lovense.connect)) may be a better option.
