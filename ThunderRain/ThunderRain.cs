@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using BepInEx;
 using R2API.Utils;
 using RoR2;
+using UnityEngine;
 
 namespace ThunderRain {
 
@@ -15,20 +17,35 @@ namespace ThunderRain {
 		public const string PluginName = "ThunderRain";
 		public const string PluginVersion = "1.0.0";
 
+		private static ValuePool Buffer { get; set; }
 		private static DeviceManager DeviceManager { get; set; }
 
 		public void Awake() {
 			Log.Init(Logger);
 			Log.Info($"Performing setup for {nameof(ThunderRain)}");
+			Buffer = new ValuePool();
 			DeviceManager = new DeviceManager(nameof(ThunderRain));
 
 			GlobalEventManager.onClientDamageNotified += OperateDevicesOnDamage;
-        }
+		}
+
+		private IEnumerator PlaceHOldername() {
+			Log.Debug($"Starting buffer");
+			Buffer.SetActive();
+			yield return new WaitForSeconds(ConfigManager.TimeSpanSeconds.Value);
+			DeviceManager.ProcessValuePool(Buffer);
+			Log.Debug($"Clearing buffer");
+			Buffer.Reset();
+		}
 
 		private void OperateDevicesOnDamage(DamageDealtMessage damageMessage) {
 			Log.Debug($"Victim: {damageMessage.victim?.ToString() ?? "reduced to atoms"}");
 			Log.Debug($"Attacker: {damageMessage.attacker?.ToString() ?? "reduced to atoms"}");
 			if (damageMessage.victim == null) { return; }
+
+			if (Buffer.Status == ValuePool.PoolStatus.Empty) {
+				StartCoroutine(PlaceHOldername());
+			}
 
 			CharacterMaster playerMaster = LocalUserManager.GetFirstLocalUser().cachedMaster;
 			CharacterBody player = playerMaster.GetBody();
@@ -50,29 +67,24 @@ namespace ThunderRain {
 			Log.Debug($"Was victim local player? {didPlayerReceiveDamage}");
 			Log.Debug($"Was attacker local player? {didPlayerDealDamage}");
 
-			PiShockValues values = new PiShockValues();
 			if ((didPlayerDealDamage && ConfigManager.VibrationsFromDealingDamage.Value) || (didPlayerMinionDealDamage && ConfigManager.VibrationsFromMinionsDealingDamage.Value)) {
-				values.Duration = TimeSpan.FromSeconds(ConfigManager.BaseVibrationDurationSeconds.Value * percentageOfMaxHealthDamaged);
-				values.Intensity = (int) (ConfigManager.DealingDamageBaseVibrationIntensity.Value * percentageOfMaxHealthDamaged);
-				DeviceManager.Operate(PiShockOperation.Vibrate, values);
+				Buffer.VibrationValues.Duration += TimeSpan.FromSeconds(ConfigManager.BaseVibrationDurationSeconds.Value * percentageOfMaxHealthDamaged);
+				Buffer.VibrationValues.Intensity += ConfigManager.DealingDamageBaseVibrationIntensity.Value * percentageOfMaxHealthDamaged;
 			}
 
 			if ((didPlayerDealDamage && ConfigManager.ShocksFromDealingDamage.Value) || (didPlayerMinionDealDamage && ConfigManager.ShocksFromMinionsDealingDamage.Value)) {
-				values.Duration = TimeSpan.FromSeconds(ConfigManager.BaseShockDurationSeconds.Value * percentageOfMaxHealthDamaged);
-				values.Intensity = (int) (ConfigManager.DealingDamageBaseShockIntensity.Value * percentageOfMaxHealthDamaged);
-				DeviceManager.Operate(PiShockOperation.Shock, values);
+				Buffer.ShockValues.Duration += TimeSpan.FromSeconds(ConfigManager.BaseShockDurationSeconds.Value * percentageOfMaxHealthDamaged);
+				Buffer.ShockValues.Intensity += ConfigManager.DealingDamageBaseShockIntensity.Value * percentageOfMaxHealthDamaged;
 			}
 
 			if ((didPlayerReceiveDamage && ConfigManager.VibrationsFromReceivingDamage.Value) || (didPlayerMinionReceiveDamage && ConfigManager.VibrationsFromMinionsReceivingDamage.Value)) {
-				values.Duration = TimeSpan.FromSeconds(ConfigManager.BaseVibrationDurationSeconds.Value * percentageOfMaxHealthDamaged);
-				values.Intensity = (int) (ConfigManager.ReceivingDamageBaseVibrationIntensity.Value * percentageOfMaxHealthDamaged);
-				DeviceManager.Operate(PiShockOperation.Vibrate, values);
+				Buffer.VibrationValues.Duration += TimeSpan.FromSeconds(ConfigManager.BaseVibrationDurationSeconds.Value * percentageOfMaxHealthDamaged);
+				Buffer.VibrationValues.Intensity += ConfigManager.ReceivingDamageBaseVibrationIntensity.Value * percentageOfMaxHealthDamaged;
 			}
 
 			if ((didPlayerReceiveDamage && ConfigManager.ShocksFromReceivingDamage.Value) || (didPlayerMinionReceiveDamage && ConfigManager.ShocksFromMinionsReceivingDamage.Value)) {
-				values.Duration = TimeSpan.FromSeconds(ConfigManager.BaseShockDurationSeconds.Value * percentageOfMaxHealthDamaged);
-				values.Intensity = (int) (ConfigManager.ReceivingDamageBaseShockIntensity.Value * percentageOfMaxHealthDamaged);
-				DeviceManager.Operate(PiShockOperation.Shock, values);
+				Buffer.ShockValues.Duration += TimeSpan.FromSeconds(ConfigManager.BaseShockDurationSeconds.Value * percentageOfMaxHealthDamaged);
+				Buffer.ShockValues.Intensity += ConfigManager.ReceivingDamageBaseShockIntensity.Value * percentageOfMaxHealthDamaged;
 			}
 		}
 	}

@@ -41,11 +41,11 @@ namespace ThunderRain {
 		/// <summary>
 		/// Duration of the operation in seconds from <c>[0, 15]</c>.
 		/// </summary>
-		internal int Duration { get; set; }
+		internal float Duration { get; set; }
 		/// <summary>
 		/// Intensity of the operations from <c>[0, 100]</c>.
 		/// </summary>
-		internal int Intensity { get; set; }
+		internal float Intensity { get; set; }
 	}
 
 	/// <summary>
@@ -65,12 +65,14 @@ namespace ThunderRain {
 	}
 
 	/// <summary>
-	/// Helper class that stores and clamps duration and intensity values for PiShock operations.
+	/// Helper class that stores and clamps duration and intensity values for <see cref="PiShockOperation" />s.
 	/// </summary>
 	internal class PiShockValues {
 
 		internal const int MaxApiDurationSeconds = 15;
 		internal const int MaxApiIntensity = 100;
+
+		// want to use floats to capture damage that results in <1
 
 		private TimeSpan _duration = TimeSpan.Zero;
 		/// <summary>
@@ -84,15 +86,23 @@ namespace ThunderRain {
 			}
 		}
 
-		private int _intensity = 0;
+		private float _intensity = 0;
 		/// <summary>
 		/// Intensity of the operation from <c>[0, 100]</c>.
 		/// </summary>
-		internal int Intensity {
+		internal float Intensity {
 			get => _intensity;
 			set {
 				_intensity = Mathf.Clamp(value, 0, MaxApiIntensity);
 			}
+		}
+
+		internal bool IsNill() {
+			return Duration == TimeSpan.Zero || Intensity == 0;
+		}
+
+		public override string ToString() {
+			return $"PiShockValues(Intensity={Intensity}, Duration={Duration.TotalSeconds}s)";
 		}
 	}
 }

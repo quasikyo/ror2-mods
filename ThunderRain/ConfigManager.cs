@@ -44,6 +44,7 @@ namespace ThunderRain {
 		#endregion
 
 		#region Operation Behavior
+		internal static ConfigEntry<int> TimeSpanSeconds;
 		internal static ConfigEntry<DeviceManager.ShockerSelection> ShockerSelection;
 		internal static ConfigEntry<bool> AllowExcessDamage { get; set; }
 		#endregion
@@ -213,8 +214,19 @@ namespace ThunderRain {
 			#endregion
 
 			#region Operation Behavior
+			TimeSpanSeconds = OptionsConfig.Bind(
+				"Operation Behavior",
+				"Time Span",
+				3,
+				new ConfigDescription(
+					"Sums up values over this many seconds.",
+					new AcceptableValueRange<int>(1, 100)
+				)
+			);
+			ModSettingsManager.AddOption(new IntSliderOption(TimeSpanSeconds));
+
 			ShockerSelection = OptionsConfig.Bind(
-				"Device Behavior",
+				"Operation Behavior",
 				"Shocker Selection",
 				DeviceManager.ShockerSelection.Random,
 				"Controls which shockers are selected when commands are sent."
@@ -222,7 +234,7 @@ namespace ThunderRain {
 			ModSettingsManager.AddOption(new ChoiceOption(ShockerSelection));
 
 			AllowExcessDamage = OptionsConfig.Bind(
-				"Device Behavior",
+				"Operation Behavior",
 				"Allow For Excess Damage",
 				false,
 				"Allow for excess damage dealt over an entity's max combined health to affect operation intensity."

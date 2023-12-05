@@ -45,20 +45,32 @@ namespace ThunderRain {
 			ConfigManager.PiShockShareCodes.SettingChanged += UpdateShockerList;
 		}
 
-        private void UpdateShockerList(object _, EventArgs __) {
-			Log.Debug(ConfigManager.PiShockShareCodes.Value);
+		private void UpdateShockerList(object _, EventArgs __) {
+			Log.Info(ConfigManager.PiShockShareCodes.Value);
 			Shockers = ConfigManager.PiShockShareCodes.Value
 					.Split(',')
 					.Select(code => new PiShockShocker(code.Trim()))
 					.ToArray();
-			Log.Debug($"Amount of shockers: {Shockers.Length}");
+			Log.Info($"Amount of shockers: {Shockers.Length}");
 			foreach (PiShockShocker shocker in Shockers) {
-				Log.Debug($"Shocker share code: {shocker.ShareCode}");
+				Log.Info($"Shocker share code: {shocker.ShareCode}");
 			};
-        }
+		}
 
 		private PiShockShocker GetRandomShocker() {
 			return Shockers[new Random().Next(0, Shockers.Length)];
+		}
+
+		/// <summary>
+		/// Uses a <paramref name="pool"/> of <see cref="PiShockValues" to send PiShock requests. />
+		/// </summary>
+		internal void ProcessValuePool(ValuePool pool) {
+			if (!pool.VibrationValues.IsNill()) {
+				Operate(PiShockOperation.Vibrate, pool.VibrationValues);
+			}
+			if (!pool.ShockValues.IsNill()) {
+				Operate(PiShockOperation.Shock, pool.ShockValues);
+			}
 		}
 
 		/// <summary>
@@ -67,7 +79,7 @@ namespace ThunderRain {
 		/// </summary>
 		/// <param name="operation">Shock, vibrate, or beep.</param>
 		/// <param name="values">Duration and intensity of the operation.</param>
-        internal void Operate(PiShockOperation operation, PiShockValues values) {
+		private void Operate(PiShockOperation operation, PiShockValues values) {
 			switch (ConfigManager.ShockerSelection.Value) {
 				case ShockerSelection.All:
 					foreach (PiShockShocker shocker in Shockers) {
@@ -88,6 +100,7 @@ namespace ThunderRain {
 		/// <param name="values">Duration and intensity of the operation.</param>
 		/// <param name="shocker">Which shocker to send the operation to.</param>
 		async private void SendOperation(PiShockOperation operation, PiShockValues values, PiShockShocker shocker) {
+			Log.Info($"Sending {operation} with {values} to {shocker.ShareCode}");
 			// string requestContent = JsonSerializer.Serialize(new PiShockRequest { // why no worky?
 			string requestContent = JsonSerializer.Serialize(new {
 				Username = ConfigManager.PiShockUsername.Value,
@@ -96,7 +109,7 @@ namespace ThunderRain {
 				Name = DisplayName,
 				Op = (int) operation,
 				Duration = (int) values.Duration.TotalSeconds,
-				Intensity = values.Intensity
+				Intensity = (int) values.Intensity
 			});
 			Log.Debug($"Request content: {requestContent}");
 			HttpContent requestBody = new StringContent(requestContent, Encoding.UTF8, "application/json");
