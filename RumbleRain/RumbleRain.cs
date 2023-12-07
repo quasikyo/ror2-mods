@@ -15,7 +15,7 @@ namespace RumbleRain {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "RumbleRain";
-		public const string PluginVersion = "0.4.1";
+		public const string PluginVersion = "0.4.2";
 
 		internal static DeviceManager DeviceManager { get; private set; }
 
@@ -48,12 +48,13 @@ namespace RumbleRain {
 		private void VibrateDevicesOnDamage(DamageDealtMessage damageMessage) {
 			Log.Debug($"Victim: {damageMessage.victim?.ToString() ?? "reduced to atoms"}");
 			Log.Debug($"Attacker: {damageMessage.attacker?.ToString() ?? "reduced to atoms"}");
-			if (damageMessage.victim == null) { return; }
 
 			CharacterMaster playerMaster = LocalUserManager.GetFirstLocalUser().cachedMaster;
 			CharacterBody player = playerMaster.GetBody();
-			CharacterBody victim = damageMessage.victim.GetComponent<CharacterBody>();
+			CharacterBody victim = damageMessage.victim?.GetComponent<CharacterBody>();
 			CharacterBody attacker = damageMessage.attacker?.GetComponent<CharacterBody>();
+
+			if (victim == null) { return; }
 
 			float victimMaxHealth = victim.healthComponent.fullCombinedHealth;
 			float percentageOfMaxHealthDamaged = damageMessage.damage / victimMaxHealth;
@@ -63,8 +64,8 @@ namespace RumbleRain {
 
 			bool didPlayerDealDamage = player == attacker;
 			bool didPlayerReceiveDamage = player == victim;
-			bool didPlayerMinionDealDamage = attacker?.master.minionOwnership.ownerMaster == playerMaster;
-			bool didPlayerMinionReceiveDamage = victim.master.minionOwnership.ownerMaster == playerMaster;
+			bool didPlayerMinionDealDamage = attacker?.master?.minionOwnership.ownerMaster == playerMaster;
+			bool didPlayerMinionReceiveDamage = victim.master?.minionOwnership.ownerMaster == playerMaster;
 
 			Log.Debug($"{attacker} dealt {damageMessage.damage} ({percentageOfMaxHealthDamaged * 100}%) to {victim} max {victimMaxHealth}.");
 			Log.Debug($"Was victim local player? {didPlayerReceiveDamage}");

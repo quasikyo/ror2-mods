@@ -1,6 +1,6 @@
 {
 	"name": "RumbleRain",
-	"version_number": "0.4.1",
+	"version_number": "0.4.2",
 	"website_url": "https://github.com/quasikyo/ror2-mods/tree/main/RumbleRain",
 	"description": "Vibrates BPio-capable devices in response to in-game damage events.",
 	"dependencies": [
