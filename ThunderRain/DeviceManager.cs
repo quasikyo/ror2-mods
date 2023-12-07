@@ -62,7 +62,7 @@ namespace ThunderRain {
 		}
 
 		/// <summary>
-		/// Uses a <paramref name="pool"/> of <see cref="PiShockValues" to send PiShock requests. />
+		/// Uses a <paramref name="pool"/> of <see cref="PiShockValues" /> to send PiShock requests.
 		/// </summary>
 		internal void ProcessValuePool(ValuePool pool) {
 			if (!pool.VibrationValues.IsNill()) {

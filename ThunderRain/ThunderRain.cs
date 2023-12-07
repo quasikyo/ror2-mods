@@ -15,7 +15,7 @@ namespace ThunderRain {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "ThunderRain";
-		public const string PluginVersion = "1.0.0";
+		public const string PluginVersion = "1.0.1";
 
 		private static ValuePool Buffer { get; set; }
 		private static DeviceManager DeviceManager { get; set; }
@@ -29,7 +29,7 @@ namespace ThunderRain {
 			GlobalEventManager.onClientDamageNotified += OperateDevicesOnDamage;
 		}
 
-		private IEnumerator PlaceHOldername() {
+		private IEnumerator ReadBuffer() {
 			Log.Debug($"Starting buffer");
 			Buffer.SetActive();
 			yield return new WaitForSeconds(ConfigManager.TimeSpanSeconds.Value);
@@ -41,16 +41,17 @@ namespace ThunderRain {
 		private void OperateDevicesOnDamage(DamageDealtMessage damageMessage) {
 			Log.Debug($"Victim: {damageMessage.victim?.ToString() ?? "reduced to atoms"}");
 			Log.Debug($"Attacker: {damageMessage.attacker?.ToString() ?? "reduced to atoms"}");
-			if (damageMessage.victim == null) { return; }
-
-			if (Buffer.Status == ValuePool.PoolStatus.Empty) {
-				StartCoroutine(PlaceHOldername());
-			}
 
 			CharacterMaster playerMaster = LocalUserManager.GetFirstLocalUser().cachedMaster;
 			CharacterBody player = playerMaster.GetBody();
-			CharacterBody victim = damageMessage.victim.GetComponent<CharacterBody>();
+			CharacterBody victim = damageMessage.victim?.GetComponent<CharacterBody>();
 			CharacterBody attacker = damageMessage.attacker?.GetComponent<CharacterBody>();
+
+			if (victim == null) { return; }
+
+			if (Buffer.Status == ValuePool.PoolStatus.Empty) {
+				StartCoroutine(ReadBuffer());
+			}
 
 			float victimMaxHealth = victim.healthComponent.fullCombinedHealth;
 			float percentageOfMaxHealthDamaged = damageMessage.damage / victimMaxHealth;
@@ -60,8 +61,8 @@ namespace ThunderRain {
 
 			bool didPlayerDealDamage = player == attacker;
 			bool didPlayerReceiveDamage = player == victim;
-			bool didPlayerMinionDealDamage = attacker?.master.minionOwnership.ownerMaster == playerMaster;
-			bool didPlayerMinionReceiveDamage = victim.master.minionOwnership.ownerMaster == playerMaster;
+			bool didPlayerMinionDealDamage = attacker?.master?.minionOwnership.ownerMaster == playerMaster;
+			bool didPlayerMinionReceiveDamage = victim.master?.minionOwnership.ownerMaster == playerMaster;
 
 			Log.Debug($"{attacker} dealt {damageMessage.damage} ({percentageOfMaxHealthDamaged * 100}%) to {victim} max {victimMaxHealth}.");
 			Log.Debug($"Was victim local player? {didPlayerReceiveDamage}");
