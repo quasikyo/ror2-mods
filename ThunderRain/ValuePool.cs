@@ -1,3 +1,5 @@
+using System;
+
 namespace ThunderRain {
 
 	/// <summary>
@@ -24,16 +26,24 @@ namespace ThunderRain {
 
 		internal ValuePool() {
 			Reset();
+			ConfigManager.MaximumShockDuration.SettingChanged += ResetOnSettingChange;
+			ConfigManager.MaximumShockIntensity.SettingChanged += ResetOnSettingChange;
+			ConfigManager.MaximumVibrationDuration.SettingChanged += ResetOnSettingChange;
+			ConfigManager.MaximumVibrationIntensity.SettingChanged += ResetOnSettingChange;
 		}
 
 		internal void SetActive() {
 			Status = PoolStatus.Active;
 		}
 
+		private void ResetOnSettingChange(object sender, EventArgs e) {
+			Reset();
+		}
+
 		internal void Reset() {
 			Status = PoolStatus.Empty;
-			VibrationValues = new PiShockValues();
-			ShockValues = new PiShockValues();
+			VibrationValues = new PiShockValues(ConfigManager.MaximumVibrationIntensity.Value, ConfigManager.MaximumVibrationDuration.Value);
+			ShockValues = new PiShockValues(ConfigManager.MaximumShockIntensity.Value, ConfigManager.MaximumShockDuration.Value);
 		}
 	}
 }

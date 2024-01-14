@@ -1,6 +1,6 @@
 {
 	"name": "ThunderRain",
-	"version_number": "1.0.1",
+	"version_number": "1.0.2",
 	"website_url": "https://github.com/quasikyo/ror2-mods/blob/main/ThunderRain",
 	"description": "Shocks PiShocks in response to in-game damage events.",
 	"dependencies": [

@@ -15,7 +15,7 @@ namespace ThunderRain {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "ThunderRain";
-		public const string PluginVersion = "1.0.1";
+		public const string PluginVersion = "1.0.2";
 
 		private static ValuePool Buffer { get; set; }
 		private static DeviceManager DeviceManager { get; set; }

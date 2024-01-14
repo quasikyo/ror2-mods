@@ -72,6 +72,9 @@ namespace ThunderRain {
 		internal const int MaxApiDurationSeconds = 15;
 		internal const int MaxApiIntensity = 100;
 
+		private int MaxIntensity { get; set; }
+		private TimeSpan MaxDuration { get; set; }
+
 		// want to use floats to capture damage that results in <1
 
 		private TimeSpan _duration = TimeSpan.Zero;
@@ -81,7 +84,7 @@ namespace ThunderRain {
 		internal TimeSpan Duration {
 			get => _duration;
 			set {
-				float seconds = Mathf.Clamp((float) value.TotalSeconds, 0, MaxApiDurationSeconds);
+				float seconds = Mathf.Clamp((float) value.TotalSeconds, 0, (float) MaxDuration.TotalSeconds);
 				_duration = TimeSpan.FromSeconds(seconds);
 			}
 		}
@@ -93,12 +96,21 @@ namespace ThunderRain {
 		internal float Intensity {
 			get => _intensity;
 			set {
-				_intensity = Mathf.Clamp(value, 0, MaxApiIntensity);
+				_intensity = Mathf.Clamp(value, 0, MaxIntensity);
 			}
 		}
 
+		internal PiShockValues(int maxIntensity, int maxDurationSeconds) {
+			MaxIntensity = maxIntensity;
+			MaxDuration = TimeSpan.FromSeconds(maxDurationSeconds);
+		}
+
+		internal PiShockValues() : this(MaxApiIntensity, MaxApiDurationSeconds) {}
+
 		internal bool IsNill() {
-			return Duration == TimeSpan.Zero || Intensity == 0;
+			bool isDurationNill = Duration.TotalSeconds < 1;
+			bool isIntensityNill = Intensity < 1;
+			return isDurationNill || isIntensityNill;
 		}
 
 		public override string ToString() {

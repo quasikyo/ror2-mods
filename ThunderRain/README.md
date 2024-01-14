@@ -2,7 +2,7 @@
 Operates [PiShocks](https://pishock.com) in response to in-game damage events.
 
 ## Safety
-Please configure shock maximum in the share code.
+Please configure shock maximums in the config and the share code.
 
 ## Issue Reporting and Suggestions
 Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
@@ -40,6 +40,7 @@ baseValue * (damageDealt / maxHealthOfDamagedEntity)
 - Base duration of shocks
 - Base intensity of shocks when dealing damage
 - Base intensity of shocks when receiving damage
+- Maximums for vibration and shock durations and intensities
 
 #### Operation Behavior
 - Time span over which to sum up intensity and duration

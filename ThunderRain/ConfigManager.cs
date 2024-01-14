@@ -37,6 +37,11 @@ namespace ThunderRain {
 		internal static ConfigEntry<int> ReceivingDamageBaseVibrationIntensity { get; set; }
 		internal static ConfigEntry<int> ReceivingDamageBaseShockIntensity { get; set; }
 
+		internal static ConfigEntry<int> MaximumVibrationIntensity { get; set; }
+		internal static ConfigEntry<int> MaximumShockIntensity { get; set; }
+		internal static ConfigEntry<int> MaximumVibrationDuration { get; set; }
+		internal static ConfigEntry<int> MaximumShockDuration { get; set; }
+
 		// internal static ConfigEntry<int> MinionsDealingDamageBaseVibrationIntensity { get; set; }
 		// internal static ConfigEntry<int> MinionsDealingDamageBaseShockIntensity { get; set; }
 		// internal static ConfigEntry<int> MinionsReceivingDamageBaseVibrationIntensity { get; set; }
@@ -211,6 +216,51 @@ namespace ThunderRain {
 				)
 			);
 			ModSettingsManager.AddOption(new IntSliderOption(ReceivingDamageBaseShockIntensity));
+
+			MaximumVibrationIntensity = OptionsConfig.Bind(
+				"Operation Values",
+				"Maximum Vibration Intensity",
+				PiShockValues.MaxApiIntensity,
+				new ConfigDescription(
+					"The maximum vibration intensity for a single operation.",
+					new AcceptableValueRange<int>(0, PiShockValues.MaxApiIntensity)
+				)
+			);
+			ModSettingsManager.AddOption(new IntSliderOption(MaximumVibrationIntensity));
+
+			MaximumShockIntensity = OptionsConfig.Bind(
+				"Operation Values",
+				"Maximum Shock Intensity",
+				PiShockValues.MaxApiIntensity,
+				new ConfigDescription(
+					"The maximum shock intensity for a single operation.",
+					new AcceptableValueRange<int>(0, PiShockValues.MaxApiIntensity)
+				)
+			);
+			ModSettingsManager.AddOption(new IntSliderOption(MaximumShockIntensity));
+
+			MaximumVibrationDuration = OptionsConfig.Bind(
+				"Operation Values",
+				"Maximum Vibration Duration Seconds",
+				PiShockValues.MaxApiDurationSeconds,
+				new ConfigDescription(
+					"The maximum shock duration for a single operation in seconds.",
+					new AcceptableValueRange<int>(0, PiShockValues.MaxApiDurationSeconds)
+				)
+			);
+			ModSettingsManager.AddOption(new IntSliderOption(MaximumVibrationDuration));
+
+
+			MaximumShockDuration = OptionsConfig.Bind(
+				"Operation Values",
+				"Maximum Shock Duration Seconds",
+				PiShockValues.MaxApiDurationSeconds,
+				new ConfigDescription(
+					"The maximum shock duration for a single operation in seconds.",
+					new AcceptableValueRange<int>(0, PiShockValues.MaxApiDurationSeconds)
+				)
+			);
+			ModSettingsManager.AddOption(new IntSliderOption(MaximumShockDuration));
 			#endregion
 
 			#region Operation Behavior
