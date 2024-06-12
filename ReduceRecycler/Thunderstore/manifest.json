@@ -1,6 +1,6 @@
 {
 	"name": "ReduceRecycler",
-	"version_number": "1.1.3",
+	"version_number": "1.2.0",
 	"website_url": "https://github.com/quasikyo/reduce-recycler",
 	"description": "Sets Recycler cooldown to instant and adds the cooldown to the run timer. Configurable to only activate after TP event.",
 	"dependencies": [
