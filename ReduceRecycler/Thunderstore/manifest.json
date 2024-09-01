@@ -1,11 +1,11 @@
 {
 	"name": "ReduceRecycler",
-	"version_number": "1.2.0",
-	"website_url": "https://github.com/quasikyo/reduce-recycler",
+	"version_number": "1.2.1",
+	"website_url": "https://github.com/quasikyo/ror2-mods/tree/main/ReduceRecycler",
 	"description": "Sets Recycler cooldown to instant and adds the cooldown to the run timer. Configurable to only activate after TP event.",
 	"dependencies": [
-		"bbepis-BepInExPack-5.4.2113",
+		"bbepis-BepInExPack-5.4.2117",
 		"tristanmcpherson-R2API-5.0.5",
-		"Rune580-Risk_Of_Options-2.7.0"
+		"Rune580-Risk_Of_Options-2.8.1"
 	]
 }

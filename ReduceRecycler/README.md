@@ -1,7 +1,7 @@
 # ReduceRecycler
 Sets Recycler cooldown to instant and adds the cooldown to the run timer.
 
-**Untested in multiplayer.**
+I have not tested this in multiplayer, but users have reported that it works.
 
 ## Credits
 - Boof, for initial mod concept and in-game general/edge-case testing
@@ -10,7 +10,7 @@ Sets Recycler cooldown to instant and adds the cooldown to the run timer.
 - Whether or not no-cooldown should apply only after teleporter
 
 ## Issue Reporting and Suggestions
-Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/reduce-recycler/issues).
+Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
 
 ## FAQ
 
