@@ -1,2 +1,2 @@
 # Changelog
-See [the releases page](https://github.com/quasikyo/reduce-recycler/releases).
+See [the releases page](https://github.com/quasikyo/ror2-mods/releases?q=ReduceRecycler).
