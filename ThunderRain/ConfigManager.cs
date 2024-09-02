@@ -25,6 +25,7 @@ namespace ThunderRain {
 		internal static ConfigEntry<bool> VibrationsFromMinionsReceivingDamage { get; set; }
 		internal static ConfigEntry<bool> ShocksFromMinionsDealingDamage { get; set; }
 		internal static ConfigEntry<bool> ShocksFromMinionsReceivingDamage { get; set; }
+		internal static ConfigEntry<bool> ShockOnDeath { get; set; }
 		#endregion
 
 		#region Operation Values
@@ -46,6 +47,9 @@ namespace ThunderRain {
 		// internal static ConfigEntry<int> MinionsDealingDamageBaseShockIntensity { get; set; }
 		// internal static ConfigEntry<int> MinionsReceivingDamageBaseVibrationIntensity { get; set; }
 		// internal static ConfigEntry<int> MinionsReceivingDamageBaseShockIntensity { get; set; }
+
+		internal static ConfigEntry<int> ShockOnDeathIntensity { get; set; }
+		internal static ConfigEntry<int> ShockOnDeathDuration { get; set; }
 		#endregion
 
 		#region Operation Behavior
@@ -148,6 +152,14 @@ namespace ThunderRain {
 				"Generate shocks when your minions (drones, turrets, etc.) receive damage."
 			);
 			ModSettingsManager.AddOption(new CheckBoxOption(ShocksFromMinionsReceivingDamage));
+
+			ShockOnDeath = OptionsConfig.Bind(
+				"Activated By",
+				"Shock on Death",
+				false,
+				"Get shocked on death."
+			);
+			ModSettingsManager.AddOption(new CheckBoxOption(ShockOnDeath));
 			#endregion
 
 			#region Operation Values
@@ -250,7 +262,6 @@ namespace ThunderRain {
 			);
 			ModSettingsManager.AddOption(new IntSliderOption(MaximumVibrationDuration));
 
-
 			MaximumShockDuration = OptionsConfig.Bind(
 				"Operation Values",
 				"Maximum Shock Duration Seconds",
@@ -261,6 +272,28 @@ namespace ThunderRain {
 				)
 			);
 			ModSettingsManager.AddOption(new IntSliderOption(MaximumShockDuration));
+
+			ShockOnDeathIntensity = OptionsConfig.Bind(
+				"Operation Values",
+				"Shock on Death Intensity",
+				0,
+				new ConfigDescription(
+					"Intensity of shock to receive on death independent of other calculations. Still subject to configured maximum.",
+					new AcceptableValueRange<int>(0, PiShockValues.MaxApiIntensity)
+				)
+			);
+			ModSettingsManager.AddOption(new IntSliderOption(ShockOnDeathIntensity));
+
+			ShockOnDeathDuration = OptionsConfig.Bind(
+				"Operation Values",
+				"Shock on Death Duration Seconds",
+				0,
+				new ConfigDescription(
+					"Duration of shock to receive on death independent of other calculations. Still subject to configured maximum.",
+					new AcceptableValueRange<int>(0, PiShockValues.MaxApiDurationSeconds)
+				)
+			);
+			ModSettingsManager.AddOption(new IntSliderOption(ShockOnDeathDuration));
 			#endregion
 
 			#region Operation Behavior

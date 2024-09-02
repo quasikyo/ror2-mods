@@ -15,7 +15,7 @@ namespace ThunderRain {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "ThunderRain";
-		public const string PluginVersion = "1.0.2";
+		public const string PluginVersion = "1.1.0";
 
 		private static ValuePool Buffer { get; set; }
 		private static DeviceManager DeviceManager { get; set; }
@@ -27,6 +27,26 @@ namespace ThunderRain {
 			DeviceManager = new DeviceManager(nameof(ThunderRain));
 
 			GlobalEventManager.onClientDamageNotified += OperateDevicesOnDamage;
+			GlobalEventManager.onCharacterDeathGlobal += OperateDevicesOnDeath;
+		}
+
+		private void OperateDevicesOnDeath(DamageReport report) {
+			if (!ConfigManager.ShockOnDeath.Value) {
+				Log.Debug("ShockOnDeath disabled, skipping death shock.");
+				return;
+			}
+
+			CharacterMaster playerMaster = LocalUserManager.GetFirstLocalUser().cachedMaster;
+			Log.Debug($"{report.victimBody?.ToString() ?? "Unknown"} died.");
+			if (playerMaster.GetBody() != report.victimBody) {
+				Log.Debug("Dying entity not current player, skipping death shock.");
+				return;
+			}
+
+			ValuePool values = new ValuePool();
+			values.ShockValues.Intensity = ConfigManager.ShockOnDeathIntensity.Value;
+			values.ShockValues.Duration = TimeSpan.FromSeconds(ConfigManager.ShockOnDeathDuration.Value);
+			DeviceManager.ProcessValuePool(values);
 		}
 
 		private IEnumerator ReadBuffer() {
@@ -39,8 +59,8 @@ namespace ThunderRain {
 		}
 
 		private void OperateDevicesOnDamage(DamageDealtMessage damageMessage) {
-			Log.Debug($"Victim: {damageMessage.victim?.ToString() ?? "reduced to atoms"}");
-			Log.Debug($"Attacker: {damageMessage.attacker?.ToString() ?? "reduced to atoms"}");
+			Log.Debug($"Victim: {damageMessage.victim?.ToString() ?? "Unknown"}");
+			Log.Debug($"Attacker: {damageMessage.attacker?.ToString() ?? "Unknown"}");
 
 			CharacterMaster playerMaster = LocalUserManager.GetFirstLocalUser().cachedMaster;
 			CharacterBody player = playerMaster.GetBody();

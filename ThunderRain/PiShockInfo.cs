@@ -38,10 +38,12 @@ namespace ThunderRain {
 		/// 2 = Beep
 		/// </summary>
 		internal int Op { get; set; }
+
 		/// <summary>
 		/// Duration of the operation in seconds from <c>[0, 15]</c>.
 		/// </summary>
 		internal int Duration { get; set; }
+
 		/// <summary>
 		/// Intensity of the operations from <c>[0, 100]</c>.
 		/// </summary>

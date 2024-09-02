@@ -101,7 +101,6 @@ namespace ThunderRain {
 		/// <param name="shocker">Which shocker to send the operation to.</param>
 		async private void SendOperation(PiShockOperation operation, PiShockValues values, PiShockShocker shocker) {
 			Log.Info($"Sending {operation} with {values} to {shocker.ShareCode}");
-			// string requestContent = JsonSerializer.Serialize(new PiShockRequest { // why no worky?
 			string requestContent = JsonSerializer.Serialize(new {
 				Username = ConfigManager.PiShockUsername.Value,
 				Apikey = ConfigManager.PiShockApiKey.Value,
@@ -115,6 +114,7 @@ namespace ThunderRain {
 			HttpContent requestBody = new StringContent(requestContent, Encoding.UTF8, "application/json");
 
 			HttpResponseMessage response = await HttpClient.PostAsync("", requestBody);
+			Log.Debug($"Received response status code: {response.StatusCode}");
 			string responseContent = await response.Content.ReadAsStringAsync();
 			switch (responseContent) {
 				case "Operation Succeeded.":
