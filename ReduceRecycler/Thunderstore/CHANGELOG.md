@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.1](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.1)
+- Update README
+
 ## [1.3.0](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.0)
 - Add config option to dynamically enable/disable mod
 - Implement cooldown reset options:

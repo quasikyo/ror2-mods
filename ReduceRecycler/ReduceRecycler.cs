@@ -19,7 +19,7 @@ namespace ReduceRecycler {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "ReduceRecycler";
-		public const string PluginVersion = "1.3.0";
+		public const string PluginVersion = "1.3.1";
 
 		private const string finalStageSceneName = "moon2";
 		private const string voidFieldsStageSceneName = "arena";

@@ -6,8 +6,8 @@ I have not tested this in multiplayer, but users have reported that it works as 
 ## Changelog - 1.3.0
 - Add config option to dynamically enable/disable mod
 - Implement cooldown reset options:
-  - After Use: cooldown is reset and time is added **after** rerolling an item
-  - Before Use: cooldown is reset and time is added **before** rerolling an item
+  - AfterUse: cooldown is reset and time is added **after** rerolling an item
+  - OnDemand: cooldown is reset on button press
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ReduceRecycler),
@@ -20,8 +20,8 @@ For the full changelog, see:
 ## Configuration
 - Whether or not no-cooldown should apply only after teleporter
 - Cooldown refresh strategy:
-  - After Use: cooldown is reset and time is added **after** rerolling an item
-  - Before Use: cooldown is reset and time is added **before** rerolling an item
+  - AfterUse: cooldown is reset and time is added **after** rerolling an item
+  - OnDemand: cooldown is reset on button press
 
 ## Issue Reporting and Suggestions
 Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
