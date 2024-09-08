@@ -13,7 +13,7 @@ namespace LaserScopeCritChance {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "LaserScopeCritChance";
-		public const string PluginVersion = "1.0.0";
+		public const string PluginVersion = "1.0.1";
 
 		private const string laserScopeInternalName = "CritDamage";
 		private ItemIndex LaserScopeItemIndex { get; set; }
@@ -25,11 +25,14 @@ namespace LaserScopeCritChance {
 				LaserScopeItemIndex = ItemCatalog.FindItemIndex(laserScopeInternalName);
 				GetStatCoefficients += AddLaserScopeCritChance;
 			};
-			Run.onRunDestroyGlobal += (Run _) => { GetStatCoefficients -= AddLaserScopeCritChance; };
+			Run.onRunDestroyGlobal += (Run _) => {
+				GetStatCoefficients -= AddLaserScopeCritChance;
+			};
 		}
 
 		private void AddLaserScopeCritChance(CharacterBody body, StatHookEventArgs args) {
 			int laserScopeCount = body?.inventory?.GetItemCount(LaserScopeItemIndex) ?? 0;
+			Log.Debug($"laserScopeCount: {laserScopeCount}");
 			if (laserScopeCount <= 0) { return; }
 
 			args.critAdd += 5;
