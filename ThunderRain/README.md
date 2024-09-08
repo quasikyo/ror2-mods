@@ -4,6 +4,14 @@ Operates [PiShocks](https://pishock.com) in response to in-game damage events.
 ## Safety
 Please configure shock maximums in the config and the share code.
 
+## Changelog - 1.1.1
+- Switch to `Newtonsoft.Json` from `System.Text.Json` to reduce dependencies
+
+For the full changelog, see:
+- [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ThunderRain),
+- [the Thunderstore changelog page](https://thunderstore.io/package/quasikyo/ThunderRain/changelog), or
+- [the local `CHANGELOG.md` file](./Thunderstore/CHANGELOG.md)
+
 ## Issue Reporting and Suggestions
 Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
 
@@ -23,6 +31,7 @@ The in-game triggers to enable.
 - Vibrations from receiving damage
 - Shocks from dealing damage
 - Shocks from receiving damage
+- Shocks on death
 - Vibrations from minions dealing damage
 - Vibrations from minions receiving damage
 - Shocks from minions dealing damage

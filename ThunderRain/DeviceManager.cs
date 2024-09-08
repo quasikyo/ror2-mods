@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace ThunderRain {
 
@@ -101,13 +101,13 @@ namespace ThunderRain {
 		/// <param name="shocker">Which shocker to send the operation to.</param>
 		async private void SendOperation(PiShockOperation operation, PiShockValues values, PiShockShocker shocker) {
 			Log.Info($"Sending {operation} with {values} to {shocker.ShareCode}");
-			string requestContent = JsonSerializer.Serialize(new {
+			string requestContent = JsonConvert.SerializeObject(new PiShockRequest {
 				Username = ConfigManager.PiShockUsername.Value,
-				Apikey = ConfigManager.PiShockApiKey.Value,
+				ApiKey = ConfigManager.PiShockApiKey.Value,
 				Code = shocker.ShareCode,
 				Name = DisplayName,
-				Op = (int) operation,
-				Duration = (int) values.Duration.TotalSeconds,
+				Operation = (int) operation,
+				DurationSeconds = (int) values.Duration.TotalSeconds,
 				Intensity = (int) values.Intensity
 			});
 			Log.Debug($"Request content: {requestContent}");

@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace ThunderRain {
@@ -17,18 +18,25 @@ namespace ThunderRain {
 		/// <summary>
 		/// Username of the PiShock owner.
 		/// </summary>
+		[JsonProperty("Username")]
 		internal string Username { get; set; }
+
 		/// <summary>
 		/// API key belonging to the PiShock owner's account.
 		/// </summary>
-		internal string Apikey { get; set; }
+		[JsonProperty("Apikey")]
+		internal string ApiKey { get; set; }
+
 		/// <summary>
 		/// Share code of the shocker to operate.
 		/// </summary>
+		[JsonProperty("Code")]
 		internal string Code { get; set; }
+
 		/// <summary>
 		/// Name of the entity executing the operation.
 		/// </summary>
+		[JsonProperty("Name")]
 		internal string Name { get; set; }
 
 		/// <summary>
@@ -37,16 +45,19 @@ namespace ThunderRain {
 		/// 1 = Vibrate
 		/// 2 = Beep
 		/// </summary>
-		internal int Op { get; set; }
+		[JsonProperty("Op")]
+		internal int Operation { get; set; }
 
 		/// <summary>
 		/// Duration of the operation in seconds from <c>[0, 15]</c>.
 		/// </summary>
-		internal int Duration { get; set; }
+		[JsonProperty("Duration")]
+		internal int DurationSeconds { get; set; }
 
 		/// <summary>
 		/// Intensity of the operations from <c>[0, 100]</c>.
 		/// </summary>
+		[JsonProperty("Intensity")]
 		internal int Intensity { get; set; }
 	}
 
