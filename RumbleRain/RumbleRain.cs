@@ -15,7 +15,7 @@ namespace RumbleRain {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "RumbleRain";
-		public const string PluginVersion = "0.4.2";
+		public const string PluginVersion = "0.5.0";
 
 		internal static DeviceManager DeviceManager { get; private set; }
 
@@ -34,7 +34,6 @@ namespace RumbleRain {
 				DeviceManager.CleanUp();
 			};
 
-            // On.RoR2.PauseManager.CCTogglePause += (a, b) => { };
 			GlobalEventManager.onClientDamageNotified += VibrateDevicesOnDamage;
 		}
 
@@ -67,11 +66,11 @@ namespace RumbleRain {
 			bool didPlayerMinionDealDamage = attacker?.master?.minionOwnership.ownerMaster == playerMaster;
 			bool didPlayerMinionReceiveDamage = victim.master?.minionOwnership.ownerMaster == playerMaster;
 
-			Log.Debug($"{attacker} dealt {damageMessage.damage} ({percentageOfMaxHealthDamaged * 100}%) to {victim} max {victimMaxHealth}.");
+			Log.Debug($"{attacker} dealt {damageMessage.damage} ({percentageOfMaxHealthDamaged * 100}%) to {victim} with max health {victimMaxHealth}.");
 			Log.Debug($"Was victim local player? {didPlayerReceiveDamage}");
 			Log.Debug($"Was attacker local player? {didPlayerDealDamage}");
 
-			double baseSeconds = ConfigManager.BaseVibrationDurationSeconds.Value;
+			float baseSeconds = ConfigManager.BaseVibrationDurationSeconds.Value;
 			VibrationInfo vibrationInfo = new VibrationInfo(TimeSpan.FromSeconds(baseSeconds * percentageOfMaxHealthDamaged));
 			if ((didPlayerDealDamage && ConfigManager.IsRewardingEnabled.Value) || (didPlayerMinionDealDamage && ConfigManager.IsMinionRewardingEnabled.Value)) {
 				vibrationInfo.Intensity = ConfigManager.DamageDealtBaseVibrationIntensity.Value * percentageOfMaxHealthDamaged;

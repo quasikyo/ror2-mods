@@ -58,14 +58,14 @@ namespace RumbleRain {
 
 		protected internal override void UpdateVibrationInfo(TimeSpan timeSinceLastUpdate) {
 			// This also works but is harder to follow.
-			//TimeSpan remainingDuration = VibrationInfo.Duration - timeSinceLastUpdate;
-			//double intensityScalar = remainingDuration.TotalSeconds / VibrationInfo.Duration.TotalSeconds;
-			//VibrationInfo.Intensity *= intensityScalar;
-			//VibrationInfo.Duration = remainingDuration;
+			// TimeSpan remainingDuration = VibrationInfo.Duration - timeSinceLastUpdate;
+			// double intensityScalar = remainingDuration.TotalSeconds / VibrationInfo.Duration.TotalSeconds;
+			// VibrationInfo.Intensity *= (float) intensityScalar;
+			// VibrationInfo.Duration = remainingDuration;
 
 			Info.Duration -= timeSinceLastUpdate;
 			double intensityScalar = Info.Duration.TotalSeconds / Info.DurationSnapshot.TotalSeconds;
-			Info.Intensity = Info.IntensitySnapshot * intensityScalar;
+			Info.Intensity = Info.IntensitySnapshot * (float) intensityScalar;
 		}
 	}
 
@@ -81,7 +81,7 @@ namespace RumbleRain {
 		protected internal override void UpdateVibrationInfo(TimeSpan timeSinceLastUpdate) {
 			Info.Duration -= timeSinceLastUpdate;
 			double intensityScalar = Info.Duration.TotalSeconds / Info.DurationSnapshot.TotalSeconds;
-			Info.Intensity *= intensityScalar;
+			Info.Intensity *= (float) intensityScalar;
 		}
 	}
 }

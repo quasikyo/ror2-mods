@@ -6,11 +6,11 @@ namespace RumbleRain {
 	/// Class describing vibrations.
 	/// </summary>
 	internal class VibrationInfo {
-		private double _intensity;
+		private float _intensity;
 		/// <summary>
 		/// The percentage of intensity of the vibration in the range [0, 1].
 		/// </summary>
-		protected internal double Intensity {
+		protected internal float Intensity {
 			get => _intensity;
 			set => _intensity = Clamp(value, 0, ConfigManager.MaximumVibrationIntensity.Value);
 		}
@@ -25,11 +25,11 @@ namespace RumbleRain {
 			set => _duration = Clamp(value, TimeSpan.Zero, TimeSpan.FromSeconds(ConfigManager.MaximumVibrationDurationSeconds.Value));
 		}
 
-		private double _intensitySnapshot;
+		private float _intensitySnapshot;
 		/// <summary>
 		/// A way to snapshot an intensity for future comparison.
 		/// </summary>
-		protected internal double IntensitySnapshot {
+		protected internal float IntensitySnapshot {
 			get => _intensitySnapshot;
 			set => _intensitySnapshot = Clamp(value, 0, ConfigManager.MaximumVibrationIntensity.Value);
 		}
@@ -45,11 +45,11 @@ namespace RumbleRain {
 
 		internal VibrationInfo() : this(0, TimeSpan.Zero) { }
 
-		internal VibrationInfo(double intensity) : this(intensity, TimeSpan.Zero) { }
+		internal VibrationInfo(float intensity) : this(intensity, TimeSpan.Zero) { }
 
 		internal VibrationInfo(TimeSpan duration) : this(0, duration) { }
 
-		internal VibrationInfo(double intensity, TimeSpan duration) {
+		internal VibrationInfo(float intensity, TimeSpan duration) {
 			Intensity = intensity;
 			Duration = duration;
 			SnapshotValues();
@@ -74,7 +74,7 @@ namespace RumbleRain {
 		}
 
 		protected internal bool IsImpotent() {
-			return Intensity <= 0 || Duration <= TimeSpan.Zero;
+			return Intensity < 0.01 || Duration < TimeSpan.FromSeconds(1);
 		}
 
 		public override string ToString() {

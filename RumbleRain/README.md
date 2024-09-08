@@ -1,6 +1,11 @@
 # RumbleRain
 Vibrates [BPio-capable](https://buttplug.io) devices in response to in-game damage events.
 
+## Changelog - 0.5.0
+- Update for SotS
+- Remove Fody Costura
+- Update Buttplug dependency to 4.0.0 from 3.0.1
+
 ## Installation and Running
 Before launching the game, start an [Intiface Central](https://intiface.com/central) server. If you have changed the server address from the default (`ws://localhost:12345`), be sure to update the "Server Uri" field in the configuration for this mod.
 

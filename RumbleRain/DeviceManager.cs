@@ -6,7 +6,6 @@ using UnityEngine;
 
 using Buttplug.Core;
 using Buttplug.Client;
-using Buttplug.Client.Connectors.WebsocketConnector;
 
 namespace RumbleRain {
 	/// <summary>
@@ -120,7 +119,7 @@ namespace RumbleRain {
 		/// Vibrates each connected device for the given <paramref name="intensity"/>.
 		/// </summary>
 		/// <param name="intensity">Value in the range <c>[0, 1]</c>.</param>
-		private void VibrateConnectedDevices(double intensity) {
+		private void VibrateConnectedDevices(float intensity) {
 			State = DeviceState.Active;
 
 			// new List<ButtplugClientDevice>(ButtplugClient.Devices).ForEach(x => Log.Info(x.Name));
