@@ -1,0 +1,51 @@
+name: Report Issue
+description: Report an issue with one or more mods.
+title: "<Issue title>"
+labels: []
+projects: []
+assignees:
+  - quasikyo
+body:
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: What is the issue and expected behavior?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: If known, add the steps to reproduce the issue or attest the issue occurs inconsistently.
+    validations:
+      required: true
+  - type: input
+    id: ror2-version
+    attributes:
+      label: What ROR2 version is experiencing the issue?
+      description: Refer to https://riskofrain2.wiki.gg/wiki/Version_History.
+    validations:
+      required: true
+  - type: checkboxes
+    id: affected-mods
+    attributes:
+      label: Affected Mods
+      options:
+        - label: LaserScopeCritChance
+        - label: ReduceRecycler
+        - label: RumbleRain
+        - label: ThunderRain
+  - type: textarea
+    id: multiplayer
+    attributes:
+      label: Was this in single or multiplayer? If multiplayer, were you the host or client? Who else had the mod installed?
+    validations:
+      required: true
+  - type: checkboxes
+    id: attestations
+    attributes:
+      label: Actions & Attestations
+      options:
+        - label: I have attached my `mods.yml` file. This can be found through the "Browse profile folder" setting of the Thunderstore or r2modman client.
+          required: true
+        - label: I have attached my `log.txt` file (found through the "Browse data folder" setting) or provided a specific error message from the logs. If my log file was overwritten or I am otherwise unable to to provide it, I have given a best-effort description of the issue in the above sections.
+          required: true
