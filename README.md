@@ -11,7 +11,6 @@ Mono-repository for all of my RoR2 mods.
 #### Updating Version
 - Update `<ModName>/<ModName>.cs::PluginVersion`
 - Update `version_number` in `<ModName>/Thunderstore/manifest.json`
-- Upate version number for the most recent changelog entry in `<ModName>/README.md`
 - The git tag and `.zip` name (see [Release](#releasing)) should match as well
 
 #### Releasing
@@ -21,8 +20,8 @@ Mono-repository for all of my RoR2 mods.
 - Create `.zip` of `<ModName>/Thunderstore/*` named `<AuthorName>-<ModName>-<Version>`
 
 ###### Changelog Notes
-- Update `<ModName>/README.md` to have notes for most recent update
 - Add entry in `<ModName>/Thunderstore/CHANGELOG.md`
+- Copy-paste most recent Changelog to `<ModName>/README.md`
 - Write notes in GitHub release
 
 #### Archived Links

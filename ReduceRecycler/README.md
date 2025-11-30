@@ -3,11 +3,11 @@ Sets Recycler cooldown to instant and adds the cooldown to the run timer.
 
 I have not tested this in multiplayer, but users have reported that it works as of 1.1.3.
 
-## Changelog - 1.3.0
-- Add config option to dynamically enable/disable mod
-- Implement cooldown reset options:
-  - AfterUse: cooldown is reset and time is added **after** rerolling an item
-  - OnDemand: cooldown is reset on button press
+## [1.3.2](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.2) - 2025-11-22
+
+### Fixed
+- Fix compatibility with new Alloyed Collective Update
+- Address log spam https://github.com/quasikyo/ror2-mods/issues/18
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ReduceRecycler),
@@ -18,9 +18,10 @@ For the full changelog, see:
 - Boof, for initial mod concept and in-game general/edge-case testing
 
 ## Configuration
+- Whether the mod is enabled or not
 - Whether or not no-cooldown should apply only after teleporter
 - Cooldown refresh strategy:
-  - AfterUse: cooldown is reset and time is added **after** rerolling an item
+  - AfterUse: cooldown is reset and time is added immediately after rerolling an item
   - OnDemand: cooldown is reset on button press
 
 ## Issue Reporting and Suggestions

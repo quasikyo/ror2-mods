@@ -19,7 +19,7 @@ namespace ReduceRecycler {
 		public const string PluginGUID = PluginAuthor + "." + PluginName;
 		public const string PluginAuthor = "quasikyo";
 		public const string PluginName = "ReduceRecycler";
-		public const string PluginVersion = "1.3.1";
+		public const string PluginVersion = "1.3.2";
 
 		private const string finalStageSceneName = "moon2";
 		private const string voidFieldsStageSceneName = "arena";
@@ -59,8 +59,7 @@ namespace ReduceRecycler {
 			cursor.GotoNext(
 				x => x.MatchLdarg(0),
 				x => x.MatchCallOrCallvirt<EquipmentSlot>("get_characterBody"),
-				x => x.MatchCallOrCallvirt<CharacterBody>("get_isEquipmentActivationAllowed"),
-				x => x.MatchStloc(0)
+				x => x.MatchCallOrCallvirt<CharacterBody>("get_isEquipmentActivationAllowed")
 			);
 			cursor.Index += 2;
 			cursor.Remove();
@@ -80,7 +79,7 @@ namespace ReduceRecycler {
 			cursor.Remove();
 			cursor.EmitDelegate<Func<EquipmentSlot, int>>((EquipmentSlot slot) => {
 				if (ConfigManager.CooldownReset.Value == CooldownReset.OnDemand) {
-					Log.Info("Resetting before use");
+					Log.Debug("Resetting before use");
 					ResetRecyclerCooldown(slot);
 				}
 				return slot.stock;
@@ -96,7 +95,7 @@ namespace ReduceRecycler {
 			Log.Debug($"didRecyclerReroll: {didRecyclerReroll}");
 			if (ConfigManager.CooldownReset.Value == CooldownReset.AfterUse && didRecyclerReroll) {
 				// Game uses a subcooldown timer before updating certain game state
-				Log.Info("Resetting after use");
+				Log.Debug("Resetting after use");
 				StartCoroutine(
 					ExecuteWithDelay(
 						() => ResetRecyclerCooldown(slot),
@@ -117,19 +116,19 @@ namespace ReduceRecycler {
 		/// <param name="slot"><c>EquipmentSlot</c> of the Recycler.</param>
 		private void ResetRecyclerCooldown(EquipmentSlot slot) {
 			if (!ConfigManager.IsModEnabled.Value) {
-				Log.Info("Skipping reset as mod is disabled");
+				Log.Debug("Skipping reset as mod is disabled");
 				return;
 			}
 
 			if (!IsRecycler(slot)) {
-				Log.Info("Skipping reset as equipment is not the Recycler");
+				Log.Debug("Skipping reset as equipment is not the Recycler");
 				return;
 			}
 
 			float cooldownSeconds = slot.cooldownTimer;
 			bool isInfinity = float.IsInfinity(cooldownSeconds);
 			if (isInfinity) {
-				Log.Info("Skipping reset as cooldownTimer is infinity");
+				Log.Debug("Skipping reset as cooldownTimer is infinity");
 				return;
 			}
 			float stopwatchCurrentSeconds = Run.instance.GetRunStopwatch();
@@ -144,7 +143,7 @@ namespace ReduceRecycler {
 			bool doRemoveCooldown = isOutOfCharges && allowCooldown;
 
 			if (!doRemoveCooldown) {
-				Log.Info("Skipping reset due to failing criteria evaluation");
+				Log.Debug("Skipping reset due to failing criteria evaluation");
 				return;
 			}
 
