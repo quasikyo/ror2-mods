@@ -1,0 +1,8 @@
+{
+  "strings": {
+    "ITEM_CRITDAMAGE_DESC": "Gain <style=cIsDamage>5% critical chance</style>. <style=cIsDamage>Critical Strikes</style> deal an additional <style=cIsDamage>100% damage</style> <style=cStack>(+100% per stack)</style>."
+  },
+  "en": {
+    "ITEM_CRITDAMAGE_DESC": "Gain <style=cIsDamage>5% critical chance</style>. <style=cIsDamage>Critical Strikes</style> deal an additional <style=cIsDamage>100% damage</style> <style=cStack>(+100% per stack)</style>."
+  }
+}

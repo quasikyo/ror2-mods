@@ -401,3 +401,4 @@ FodyWeavers.xsd
 **/Thunderstore/README.md
 **/Thunderstore/plugins
 **/Thunderstore/*.zip
+**/dist/

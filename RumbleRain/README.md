@@ -6,6 +6,11 @@ Vibrates [BPio-capable](https://buttplug.io) devices in response to in-game dama
 - Remove Fody Costura
 - Update Buttplug dependency to 4.0.0 from 3.0.1
 
+For the full changelog, see:
+- [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=LaserScopeCritChance),
+- [the Thunderstore changelog page](https://thunderstore.io/package/quasikyo/LaserScopeCritChance/changelog), or
+- [the local `CHANGELOG.md` file](./Thunderstore/CHANGELOG.md)
+
 ## Installation and Running
 Before launching the game, start an [Intiface Central](https://intiface.com/central) server. If you have changed the server address from the default (`ws://localhost:12345`), be sure to update the "Server Uri" field in the configuration for this mod.
 

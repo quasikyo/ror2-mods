@@ -5,16 +5,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!-- provided by RoR2 modding environment -->
-		<!-- just including for intellisense -->
+		<!-- provided by RoR2 modding environment; included for intellisense -->
 		<PackageReference Include="BepInEx.Analyzers" Version="1.0.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="BepInEx.Core" Version="5.4.21" />
-		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.3.1.275-r.0" />
-		<PackageReference Include="R2API.Core" Version="5.0.10" />
+		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.4.0-r.0" />
+		<PackageReference Include="R2API.Core" Version="5.2.0" />
 		<PackageReference Include="UnityEngine.Modules" Version="2021.3.33" />
-		<PackageReference Include="Rune580.Mods.RiskOfRain2.RiskOfOptions" Version="2.8.1" />
+		<PackageReference Include="Rune580.Mods.RiskOfRain2.RiskOfOptions" Version="2.8.3" />
 	</ItemGroup>
+
+	<Import Project="../ror2-mods.targets"/>
 </Project>

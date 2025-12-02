@@ -1,10 +1,10 @@
 # Changelog
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), and, as of version 1.3.2, the format of this changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [1.3.2](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.2) - 2025-11-22
+## [1.3.2](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.2) - 2025-11-30
 
 ### Fixed
-- Fix compatibility with new Alloyed Collective Update
+- Fix compatibility with new Alloyed Collective Update https://github.com/quasikyo/ror2-mods/issues/19
 - Address log spam https://github.com/quasikyo/ror2-mods/issues/18
 
 ## [1.3.1](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.1)

@@ -1,0 +1,28 @@
+﻿<Project>
+	<PropertyGroup>
+		<OutputFilesDirectory>bin/$(Configuration)/$(TargetFramework)</OutputFilesDirectory>
+		<TestingProfile>C:/Users/micha/AppData/Roaming/r2modmanPlus-local/RiskOfRain2/profiles/Testing/BepInEx/plugins/quasikyo-$(ModName)/$(ModName)</TestingProfile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<OutputFiles Include="$(OutputFilesDirectory)/$(ModName).dll;$(OutputFilesDirectory)/$(ModName).pdb" />
+	</ItemGroup>
+
+	<Target Name="CopyOutputToTestingProfile" AfterTargets="PostBuildEvent" Condition="'$(ModName)' != ''">
+		<Copy SourceFiles="@(OutputFiles)" DestinationFolder="$(TestingProfile)" />
+	</Target>
+
+	<Target
+		Name="PackageThunderstore"
+		AfterTargets="PostBuildEvent"
+		Condition="'$(Configuration)' == 'Release'"
+	>
+		<Exec Command="tcli build --config-path Thunderstore/thunderstore.toml" />
+	</Target>
+
+	<!-- TODO: Test this. -->
+	<Target Name="PublishThunderstore" DependsOnTargets="PackageThunderstore">
+		<Exec Command="tcli publish --config-path Thunderstore/thunderstore.toml --file dist/*-$(ModName)-*.zip" />
+	</Target>
+
+</Project>
