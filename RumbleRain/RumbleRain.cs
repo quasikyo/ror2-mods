@@ -9,13 +9,8 @@ using static RumbleRain.VibrationInfoProvider;
 namespace RumbleRain {
 	[BepInDependency("com.rune580.riskofoptions")]
 	[NetworkCompatibility(CompatibilityLevel.NoNeedForSync)]
-	[BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+	[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 	public class RumbleRain : BaseUnityPlugin {
-
-		public const string PluginGUID = PluginAuthor + "." + PluginName;
-		public const string PluginAuthor = "quasikyo";
-		public const string PluginName = "RumbleRain";
-		public const string PluginVersion = "0.5.0";
 
 		internal static DeviceManager DeviceManager { get; private set; }
 

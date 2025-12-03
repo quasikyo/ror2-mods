@@ -1,4 +1,7 @@
 # RumbleRain
+[![Thunderstore Version](https://img.shields.io/thunderstore/v/quasikyo/RumbleRain?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/package/quasikyo/RumbleRain)
+[![Thunderstore Downloads](https://img.shields.io/thunderstore/dt/quasikyo/RumbleRain?style=for-the-badge)](https://thunderstore.io/package/quasikyo/RumbleRain)
+
 Vibrates [BPio-capable](https://buttplug.io) devices in response to in-game damage events.
 
 ## Changelog - 0.5.0
@@ -7,9 +10,9 @@ Vibrates [BPio-capable](https://buttplug.io) devices in response to in-game dama
 - Update Buttplug dependency to 4.0.0 from 3.0.1
 
 For the full changelog, see:
-- [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=LaserScopeCritChance),
-- [the Thunderstore changelog page](https://thunderstore.io/package/quasikyo/LaserScopeCritChance/changelog), or
-- [the local `CHANGELOG.md` file](./Thunderstore/CHANGELOG.md)
+- [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=RumbleRain),
+- [the Thunderstore changelog page](https://thunderstore.io/package/quasikyo/RumbleRain/changelog), or
+- [the local `CHANGELOG.md` file](./CHANGELOG.md)
 
 ## Installation and Running
 Before launching the game, start an [Intiface Central](https://intiface.com/central) server. If you have changed the server address from the default (`ws://localhost:12345`), be sure to update the "Server Uri" field in the configuration for this mod.
@@ -20,7 +23,7 @@ Before launching the game, start an [Intiface Central](https://intiface.com/cent
 
 #### Manual
 1. Download the `.zip` from either:
-   - [the relases page on GitHub](https://github.com/quasikyo/rumble-rain/releases)
+   - [the relases page on GitHub](https://github.com/quasikyo/ror2-mods/releases?q=RumbleRain)
    - the Manual Download button on [the Thunderstore page](https://thunderstore.io/package/quasikyo/RumbleRain)
 2. Go to the settings in the mod manager for the profile you want to install to and select "Import local mod".
 3. Select the `.zip` downloaded in step 1.

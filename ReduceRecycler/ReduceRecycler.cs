@@ -13,13 +13,8 @@ using static On.RoR2.EquipmentSlot;
 namespace ReduceRecycler {
 	[BepInDependency("com.rune580.riskofoptions")]
 	[NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
-	[BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+	[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 	public class ReduceRecycler : BaseUnityPlugin {
-
-		public const string PluginGUID = PluginAuthor + "." + PluginName;
-		public const string PluginAuthor = "quasikyo";
-		public const string PluginName = "ReduceRecycler";
-		public const string PluginVersion = "1.3.2";
 
 		private const string finalStageSceneName = "moon2";
 		private const string voidFieldsStageSceneName = "arena";

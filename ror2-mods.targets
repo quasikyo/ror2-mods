@@ -1,14 +1,77 @@
 ﻿<Project>
 	<PropertyGroup>
-		<OutputFilesDirectory>bin/$(Configuration)/$(TargetFramework)</OutputFilesDirectory>
-		<TestingProfile>C:/Users/micha/AppData/Roaming/r2modmanPlus-local/RiskOfRain2/profiles/Testing/BepInEx/plugins/quasikyo-$(ModName)/$(ModName)</TestingProfile>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 	</PropertyGroup>
 
+	<!--
+		Pack info. I'm not creating NuGet packages but good to have.
+		https://learn.microsoft.com/en-us/nuget/reference/msbuild-targets#pack-target
+	-->
+	<PropertyGroup>
+		<Owner>quasikyo</Owner>
+		<Authors>$(Owner)</Authors>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+		<PackageProjectUrl>https://thunderstore.io/package/$(Owner)/$(AssemblyName)</PackageProjectUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<RepositoryUrl>https://github.com/$(Owner)/ror2-mods/tree/main/$(AssemblyName)</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
 	<ItemGroup>
-		<OutputFiles Include="$(OutputFilesDirectory)/$(ModName).dll;$(OutputFilesDirectory)/$(ModName).pdb" />
+		<None Include="README.md" Pack="true" PackagePath="/" Visible="false" />
+		<None Include="../LICENSE" Pack="true" PackagePath="/" Visible="false" />
+		<None Include="Thunderstore/icon.png" Pack="true" PackagePath="/" Visible="false" />
 	</ItemGroup>
 
-	<Target Name="CopyOutputToTestingProfile" AfterTargets="PostBuildEvent" Condition="'$(ModName)' != ''">
+	<!--
+		Dependencies used to develop/build.
+		Some are runtime dependencies, but those are provided by mods users will have installed.
+	-->
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.0.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="BepInEx.Core" Version="5.4.21" />
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+		<PackageReference Include="MinVer" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="MMHOOK.RoR2" Version="2025.11.19" />
+		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.4.0-r.0" />
+		<PackageReference Include="Rune580.Mods.RiskOfRain2.RiskOfOptions" Version="2.8.3" />
+		<PackageReference Include="R2API.Core" Version="5.2.0" />
+		<PackageReference Include="R2API.RecalculateStats" Version="1.4.0" />
+		<PackageReference Include="R2API.Language" Version="1.0.1" />
+		<PackageReference Include="UnityEngine.Modules" Version="2021.3.33" />
+	</ItemGroup>
+
+	<!-- BepInEx.PluginInfoProps -->
+	<PropertyGroup>
+		<BepInExPluginGuid>$(Owner).$(AssemblyName)</BepInExPluginGuid>
+	</PropertyGroup>
+
+	<!-- MinVer -->
+	<PropertyGroup>
+		<MinVerIgnoreHeight>true</MinVerIgnoreHeight>
+		<MinVerTagPrefix>$(AssemblyName)-</MinVerTagPrefix>
+	</PropertyGroup>
+	<Target Name="SetPluginVersion" BeforeTargets="AddGeneratedFile" DependsOnTargets="MinVer">
+		<PropertyGroup>
+			<BepInExPluginVersion>$(Version)</BepInExPluginVersion>
+		</PropertyGroup>
+	</Target>
+
+	<PropertyGroup>
+		<OutputFilesDirectory>bin/$(Configuration)/$(TargetFramework)</OutputFilesDirectory>
+		<TestingProfile>C:/Users/micha/AppData/Roaming/r2modmanPlus-local/RiskOfRain2/profiles/Testing/BepInEx/plugins/quasikyo-$(AssemblyName)/$(AssemblyName)</TestingProfile>
+	</PropertyGroup>
+	<ItemGroup>
+		<OutputFiles Include="$(OutputFilesDirectory)/$(AssemblyName).dll;$(OutputFilesDirectory)/$(AssemblyName).pdb" />
+	</ItemGroup>
+	<Target Name="CopyOutputToTestingProfile" AfterTargets="PostBuildEvent">
 		<Copy SourceFiles="@(OutputFiles)" DestinationFolder="$(TestingProfile)" />
 	</Target>
 
@@ -16,13 +79,17 @@
 		Name="PackageThunderstore"
 		AfterTargets="PostBuildEvent"
 		Condition="'$(Configuration)' == 'Release'"
+		DependsOnTargets="MinVer"
 	>
-		<Exec Command="tcli build --config-path Thunderstore/thunderstore.toml" />
+		<Exec Command="tcli build --config-path Thunderstore/thunderstore.toml --package-version $(Version)" />
 	</Target>
 
-	<!-- TODO: Test this. -->
-	<Target Name="PublishThunderstore" DependsOnTargets="PackageThunderstore">
-		<Exec Command="tcli publish --config-path Thunderstore/thunderstore.toml --file dist/*-$(ModName)-*.zip" />
+	<Target
+		Name="PublishThunderstore"
+		Condition="'$(Configuration)' == 'Release'"
+		DependsOnTargets="PackageThunderstore"
+	>
+		<Exec Command="tcli publish --config-path Thunderstore/thunderstore.toml --file Thunderstore/dist/$(Owner)-$(AssemblyName)-$(Version).zip" />
 	</Target>
 
 </Project>

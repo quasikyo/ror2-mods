@@ -1,33 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
-		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-	</PropertyGroup>
+	<Import Project="../ror2-mods.targets"/>
 
-	<!-- provided by RoR2 modding environment; included for intellisense -->
-	<ItemGroup>
-		<PackageReference Include="BepInEx.Core" Version="5.4.21" />
-		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.4.0-r.0" />
-		<PackageReference Include="R2API.Core" Version="5.2.0" />
-		<PackageReference Include="UnityEngine.Modules" Version="2021.3.33" />
-		<PackageReference Include="Rune580.Mods.RiskOfRain2.RiskOfOptions" Version="2.8.3" />
-	</ItemGroup>
-
-	<!-- not provided; include in final .zip -->
 	<ItemGroup>
 		<PackageReference Include="Buttplug" Version="4.0.0" GeneratePathProperty="true" />
-	</ItemGroup>
-
-	<Import Project="../ror2-mods.targets"/>
-	<ItemGroup>
 		<ButtplugDependency Include="$(PkgButtplug)/lib/$(TargetFramework)/Buttplug.dll" />
 	</ItemGroup>
-	<Target Name="CopyDependenciesToTestingProfile" AfterTargets="PostBuildEvent">
+
+	<Target Name="DuplicateDependenciesForTestingAndBuilding" AfterTargets="PostBuildEvent" BeforeTargets="PackageThunderstore">
 		<Copy SourceFiles="@(ButtplugDependency)" DestinationFolder="$(TestingProfile)" />
-	</Target>
-	<Target Name="ExposeDependenciesForThunderstoreBuild" BeforeTargets="PackageThunderstore">
 		<Copy SourceFiles="@(ButtplugDependency)" DestinationFolder="Thunderstore" />
 	</Target>
+
 	<Target Name="DeleteExposedDependencies" AfterTargets="PackageThunderstore">
 		<Delete Files="Thunderstore/Buttplug.dll" />
 	</Target>

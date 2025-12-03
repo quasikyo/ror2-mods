@@ -398,7 +398,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Building stuff
-**/Thunderstore/README.md
-**/Thunderstore/plugins
-**/Thunderstore/*.zip
-**/dist/
+**/Thunderstore/dist/
+**/*.dll
+publish.env

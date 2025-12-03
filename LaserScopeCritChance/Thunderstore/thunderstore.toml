@@ -10,7 +10,6 @@ name = "LaserScopeCritChance"
 description = "Mod that makes the red item Laser Scope give a 5% crit chance bonus similar to Predatory Instincts, Harvester's Scythe, and Shatterspleen."
 websiteUrl = "https://github.com/quasikyo/ror2-mods/tree/main/LaserScopeCritChance"
 containsNsfwContent = false
-versionNumber = "1.0.1"
 
 [package.dependencies]
 bbepis-BepInExPack = "5.4.2121"
@@ -19,7 +18,7 @@ tristanmcpherson-R2API = "5.0.5"
 [build]
 icon = "./icon.png"
 readme = "../README.md"
-outdir = "../dist"
+outdir = "./dist"
 
 [[build.copy]]
 source = "../bin/Release/netstandard2.1/LaserScopeCritChance.dll"

@@ -10,7 +10,6 @@ name = "ThunderRain"
 description = "Shocks PiShocks in response to in-game damage events."
 websiteUrl = "https://github.com/quasikyo/ror2-mods/tree/main/ThunderRain"
 containsNsfwContent = false
-versionNumber = "1.1.1"
 
 [package.dependencies]
 bbepis-BepInExPack = "5.4.2121"
@@ -20,7 +19,7 @@ Rune580-Risk_Of_Options = "2.8.4"
 [build]
 icon = "./icon.png"
 readme = "../README.md"
-outdir = "../dist"
+outdir = "./dist"
 
 [[build.copy]]
 source = "../bin/Release/netstandard2.1/ThunderRain.dll"

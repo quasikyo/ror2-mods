@@ -1,4 +1,7 @@
 # ReduceRecycler
+[![Thunderstore Version](https://img.shields.io/thunderstore/v/quasikyo/ReduceRecycler?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/package/quasikyo/ReduceRecycler)
+[![Thunderstore Downloads](https://img.shields.io/thunderstore/dt/quasikyo/ReduceRecycler?style=for-the-badge)](https://thunderstore.io/package/quasikyo/ReduceRecycler)
+
 Sets Recycler cooldown to instant and adds the cooldown to the run timer.
 
 I have not tested this in multiplayer, but users have reported that it works as of 1.1.3.
@@ -12,7 +15,7 @@ I have not tested this in multiplayer, but users have reported that it works as 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ReduceRecycler),
 - [the Thunderstore changelog page](https://thunderstore.io/package/quasikyo/ReduceRecycler/changelog), or
-- [the local `CHANGELOG.md` file](./Thunderstore/CHANGELOG.md)
+- [the local `CHANGELOG.md` file](./CHANGELOG.md)
 
 ## Credits
 - Boof, for initial mod concept and in-game general/edge-case testing

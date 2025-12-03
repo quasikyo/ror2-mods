@@ -9,13 +9,8 @@ namespace ThunderRain {
 
 	[BepInDependency("com.rune580.riskofoptions")]
 	[NetworkCompatibility(CompatibilityLevel.NoNeedForSync)]
-	[BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+	[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 	public class ThunderRain : BaseUnityPlugin {
-
-		public const string PluginGUID = PluginAuthor + "." + PluginName;
-		public const string PluginAuthor = "quasikyo";
-		public const string PluginName = "ThunderRain";
-		public const string PluginVersion = "1.1.1";
 
 		private static ValuePool Buffer { get; set; }
 		private static DeviceManager DeviceManager { get; set; }

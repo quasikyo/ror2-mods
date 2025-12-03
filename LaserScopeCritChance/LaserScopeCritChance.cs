@@ -7,13 +7,8 @@ using static R2API.RecalculateStatsAPI;
 namespace LaserScopeCritChance {
 
 	[NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
-	[BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+	[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 	public class LaserScopeCritChance : BaseUnityPlugin {
-
-		public const string PluginGUID = PluginAuthor + "." + PluginName;
-		public const string PluginAuthor = "quasikyo";
-		public const string PluginName = "LaserScopeCritChance";
-		public const string PluginVersion = "1.0.1";
 
 		private const string laserScopeInternalName = "CritDamage";
 		private ItemIndex LaserScopeItemIndex { get; set; }

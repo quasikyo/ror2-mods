@@ -1,4 +1,7 @@
 # ThunderRain
+[![Thunderstore Version](https://img.shields.io/thunderstore/v/quasikyo/ThunderRain?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/package/quasikyo/ThunderRain)
+[![Thunderstore Downloads](https://img.shields.io/thunderstore/dt/quasikyo/ThunderRain?style=for-the-badge)](https://thunderstore.io/package/quasikyo/ThunderRain)
+
 Operates [PiShocks](https://pishock.com) in response to in-game damage events.
 
 ## Safety
@@ -10,7 +13,7 @@ Please configure shock maximums in the config and the share code.
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ThunderRain),
 - [the Thunderstore changelog page](https://thunderstore.io/package/quasikyo/ThunderRain/changelog), or
-- [the local `CHANGELOG.md` file](./Thunderstore/CHANGELOG.md)
+- [the local `CHANGELOG.md` file](./CHANGELOG.md)
 
 ## Issue Reporting and Suggestions
 Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
