@@ -26,11 +26,9 @@ namespace LaserScopeCritChance {
 		}
 
 		private void AddLaserScopeCritChance(CharacterBody body, StatHookEventArgs args) {
-			int laserScopeCount = body?.inventory?.GetItemCount(LaserScopeItemIndex) ?? 0;
+			int laserScopeCount = body?.inventory?.GetItemCountEffective(LaserScopeItemIndex) ?? 0;
 			Log.Debug($"laserScopeCount: {laserScopeCount}");
-			if (laserScopeCount <= 0) { return; }
-
-			args.critAdd += 5;
+			if (laserScopeCount > 0) { args.critAdd += 5; }
 		}
 	}
 }

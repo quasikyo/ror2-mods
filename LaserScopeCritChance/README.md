@@ -4,8 +4,10 @@
 
 Mod that makes the red item Laser Scope give a 5% crit chance bonus similar to Predatory Instincts, Harvester's Scythe, and Shatterspleen.
 
-## Changelog - 1.0.1
-- Update for SotS
+## [1.0.2](https://github.com/quasikyo/ror2-mods/releases/tag/LaserScopeCritChance-1.0.2) - 2025-12-02
+
+### Changed
+- Use `GetItemCountEffective` as `GetItemCount` was made obsolete with Alloyed Collective
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=LaserScopeCritChance),
