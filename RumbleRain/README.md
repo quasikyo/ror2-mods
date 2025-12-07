@@ -5,10 +5,10 @@
 
 Vibrates [BPio-capable](https://buttplug.io) devices in response to in-game damage events.
 
-## Changelog - 0.5.0
-- Update for SotS
-- Remove Fody Costura
-- Update Buttplug dependency to 4.0.0 from 3.0.1
+## [0.5.1](https://github.com/quasikyo/ror2-mods/releases/tag/RumbleRain-0.5.1) - 2025-12-07
+
+### Changed
+- Bump versions for DLC3
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=RumbleRain),
