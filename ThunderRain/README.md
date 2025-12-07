@@ -8,8 +8,13 @@ Operates [PiShocks](https://pishock.com) in response to in-game damage events.
 ## Safety
 Please configure shock maximums in the config and the share code.
 
-## Changelog - 1.1.1
-- Switch to `Newtonsoft.Json` from `System.Text.Json` to reduce dependencies
+## [1.1.2](https://github.com/quasikyo/ror2-mods/releases/tag/ThunderRain-1.1.1) - 2025-12-07
+
+### Added
+- FAQ to README
+
+### Changed
+- Bump versions for DLC3
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ThunderRain),
@@ -17,7 +22,8 @@ For the full changelog, see:
 - [the local `CHANGELOG.md` file](./CHANGELOG.md)
 
 ## Issue Reporting and Suggestions
-Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
+1. Check [the FAQ](#faq).
+2. Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
 
 ## Configuration
 
@@ -61,3 +67,8 @@ baseValue * (damageDealt / maxHealthOfDamagedEntity)
   - `All`: affect all shockers
   - `Random`: only affect a random shocker
 - Account for damage dealt past the entity's max health
+
+## FAQ
+
+### Nothing happens when I take/deal damage. Is it broken?
+If you see nothing in the logs, this is likely because your configuration isn't setup properly. You'll want to check which events you want the mod to respond to and then set appropriate base values. Keep in mind that these base values are multipled by the percent of damage dealt/taken based off your max health, so you'll want to set them a bit higher. See [this thread](https://github.com/quasikyo/ror2-mods/issues/14#issuecomment-1907120773) for more.
