@@ -1,0 +1,39 @@
+name: Publish
+
+on:
+  push:
+    tags: ["[A-Za-z]+-[0-9]+.[0-9]+.[0-9]+"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Parse mod name from tag
+        run: echo MODNAME=$GITHUB_REF_NAME | cut -d "-" -f 1 >> $GITHUB_ENV
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.x
+
+      - name: Install dependencies
+        run: dotnet restore && dotnet tool restore
+
+      - name: Build mod
+        run: dotnet build $MODNAME -c Release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: build-artifacts
+          path: ./$MODNAME/Thunderstore/dist/$GITHUB_REF_NAME.zip
+
+      - name: Publish to Thunderstore
+        env:
+          TCLI_AUTH_TOKEN: ${{ secrets.THUNDERSTORE_API_TOKEN }}
+        run: dotnet build $MODNAME -c Release -t:PublishThunderstore

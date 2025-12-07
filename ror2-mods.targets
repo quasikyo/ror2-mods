@@ -66,30 +66,45 @@
 
 	<PropertyGroup>
 		<OutputFilesDirectory>bin/$(Configuration)/$(TargetFramework)</OutputFilesDirectory>
-		<TestingProfile>C:/Users/micha/AppData/Roaming/r2modmanPlus-local/RiskOfRain2/profiles/Testing/BepInEx/plugins/quasikyo-$(AssemblyName)/$(AssemblyName)</TestingProfile>
+		<LocalTestDirectory Condition="$(TEST_PROFILE) != ''">$(TEST_PROFILE)/BepInEx/plugins/$(Owner)-$(AssemblyName)/$(AssemblyName)</LocalTestDirectory>
 	</PropertyGroup>
 	<ItemGroup>
 		<OutputFiles Include="$(OutputFilesDirectory)/$(AssemblyName).dll;$(OutputFilesDirectory)/$(AssemblyName).pdb" />
 	</ItemGroup>
-	<Target Name="CopyOutputToTestingProfile" AfterTargets="PostBuildEvent">
-		<Copy SourceFiles="@(OutputFiles)" DestinationFolder="$(TestingProfile)" />
+	<Target
+		Name="CopyOutputToLocalTestDirectory"
+		AfterTargets="PostBuildEvent"
+		Condition="$(LocalTestDirectory) != ''"
+	>
+		<Copy SourceFiles="@(OutputFiles)" DestinationFolder="$(LocalTestDirectory)" />
+	</Target>
+	<Target
+		Name="MessageCopyOutputToLocalTestDirectorySkipped"
+		AfterTargets="PostBuildEvent"
+		Condition="$(LocalTestDirectory) == ''"
+	>
+		<Message
+			Importance="high"
+			Text="Environment variable TEST_PROFILE is not set. Skipping copy to test directory."
+		/>
 	</Target>
 
 	<Target
 		Name="PackageThunderstore"
 		AfterTargets="PostBuildEvent"
-		Condition="'$(Configuration)' == 'Release'"
+		Condition="$(Configuration) == 'Release'"
 		DependsOnTargets="MinVer"
 	>
-		<Exec Command="tcli build --config-path Thunderstore/thunderstore.toml --package-version $(Version)" />
+		<Exec Command="dotnet tcli build --config-path Thunderstore/thunderstore.toml --package-version $(Version)" />
 	</Target>
 
+	<!-- Purposefully not checking for auth token in Condition so error gets surfaced -->
 	<Target
 		Name="PublishThunderstore"
-		Condition="'$(Configuration)' == 'Release'"
+		Condition="$(Configuration) == 'Release'"
 		DependsOnTargets="PackageThunderstore"
 	>
-		<Exec Command="tcli publish --config-path Thunderstore/thunderstore.toml --file Thunderstore/dist/$(Owner)-$(AssemblyName)-$(Version).zip" />
+		<Exec Command="dotnet tcli publish --config-path Thunderstore/thunderstore.toml --file Thunderstore/dist/$(Owner)-$(AssemblyName)-$(Version).zip" />
 	</Target>
 
 </Project>

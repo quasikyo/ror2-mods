@@ -1,6 +1,7 @@
 # RumbleRain
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/quasikyo/RumbleRain?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/package/quasikyo/RumbleRain)
 [![Thunderstore Downloads](https://img.shields.io/thunderstore/dt/quasikyo/RumbleRain?style=for-the-badge)](https://thunderstore.io/package/quasikyo/RumbleRain)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/quasikyo/ror2-mods/build.yml?style=for-the-badge)](https://github.com/quasikyo/ror2-mods/actions/workflows/build.yml)
 
 Vibrates [BPio-capable](https://buttplug.io) devices in response to in-game damage events.
 

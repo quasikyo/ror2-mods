@@ -1,6 +1,7 @@
 # LaserScopeCritChance
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/quasikyo/LaserScopeCritChance?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/package/quasikyo/LaserScopeCritChance)
 [![Thunderstore Downloads](https://img.shields.io/thunderstore/dt/quasikyo/LaserScopeCritChance?style=for-the-badge)](https://thunderstore.io/package/quasikyo/LaserScopeCritChance)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/quasikyo/ror2-mods/build.yml?style=for-the-badge)](https://github.com/quasikyo/ror2-mods/actions/workflows/build.yml)
 
 Mod that makes the red item Laser Scope give a 5% crit chance bonus similar to Predatory Instincts, Harvester's Scythe, and Shatterspleen.
 

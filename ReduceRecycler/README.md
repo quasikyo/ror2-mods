@@ -1,6 +1,7 @@
 # ReduceRecycler
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/quasikyo/ReduceRecycler?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/package/quasikyo/ReduceRecycler)
 [![Thunderstore Downloads](https://img.shields.io/thunderstore/dt/quasikyo/ReduceRecycler?style=for-the-badge)](https://thunderstore.io/package/quasikyo/ReduceRecycler)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/quasikyo/ror2-mods/build.yml?style=for-the-badge)](https://github.com/quasikyo/ror2-mods/actions/workflows/build.yml)
 
 Sets Recycler cooldown to instant and adds the cooldown to the run timer.
 

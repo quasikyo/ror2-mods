@@ -400,4 +400,4 @@ FodyWeavers.xsd
 # Building stuff
 **/Thunderstore/dist/
 **/*.dll
-publish.env
+.env

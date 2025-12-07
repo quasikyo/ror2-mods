@@ -6,11 +6,22 @@
 		<ButtplugDependency Include="$(PkgButtplug)/lib/$(TargetFramework)/Buttplug.dll" />
 	</ItemGroup>
 
-	<Target Name="DuplicateDependenciesForTestingAndBuilding" AfterTargets="PostBuildEvent" BeforeTargets="PackageThunderstore">
-		<Copy SourceFiles="@(ButtplugDependency)" DestinationFolder="$(TestingProfile)" />
-		<Copy SourceFiles="@(ButtplugDependency)" DestinationFolder="Thunderstore" />
+	<!--
+		I have no idea why this is still running with DependsOnTargets;
+		hence the Condition.
+	-->
+	<Target
+		Name="CopyDependenciesToTestDirectory"
+		AfterTargets="PostBuildEvent"
+		DependsOnTargets="CopyOutputToLocalTestDirectory"
+		Condition="$(LocalTestDirectory) != ''"
+	>
+		<Copy SourceFiles="@(ButtplugDependency)" DestinationFolder="$(LocalTestDirectory)"  />
 	</Target>
 
+	<Target Name="ExposeDependenciesForPackaging" AfterTargets="PostBuildEvent" BeforeTargets="PackageThunderstore">
+		<Copy SourceFiles="@(ButtplugDependency)" DestinationFolder="Thunderstore" />
+	</Target>
 	<Target Name="DeleteExposedDependencies" AfterTargets="PackageThunderstore">
 		<Delete Files="Thunderstore/Buttplug.dll" />
 	</Target>

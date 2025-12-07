@@ -5,7 +5,16 @@
 		<LanguageFile Include="LaserScopeCritChance.language" />
 	</ItemGroup>
 
-	<Target Name="CopyLanguageFileToTestingProfile" AfterTargets="PostBuildEvent">
-		<Copy SourceFiles="@(LanguageFile)" DestinationFolder="$(TestingProfile)" />
+	<!--
+		I have no idea why this is still running with DependsOnTargets;
+		hence the Condition.
+	-->
+	<Target
+		Name="CopyLanguageFileToTestDirectory"
+		AfterTargets="PostBuildEvent"
+		DependsOnTargets="CopyOutputToLocalTestDirectory"
+		Condition="$(LocalTestDirectory) != ''"
+	>
+		<Copy SourceFiles="@(LanguageFile)" DestinationFolder="$(LocalTestDirectory)" />
 	</Target>
 </Project>

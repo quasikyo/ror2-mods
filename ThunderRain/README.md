@@ -1,6 +1,7 @@
 # ThunderRain
 [![Thunderstore Version](https://img.shields.io/thunderstore/v/quasikyo/ThunderRain?style=for-the-badge&logo=thunderstore&logoColor=white)](https://thunderstore.io/package/quasikyo/ThunderRain)
 [![Thunderstore Downloads](https://img.shields.io/thunderstore/dt/quasikyo/ThunderRain?style=for-the-badge)](https://thunderstore.io/package/quasikyo/ThunderRain)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/quasikyo/ror2-mods/build.yml?style=for-the-badge)](https://github.com/quasikyo/ror2-mods/actions/workflows/build.yml)
 
 Operates [PiShocks](https://pishock.com) in response to in-game damage events.
 
