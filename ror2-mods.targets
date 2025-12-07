@@ -39,7 +39,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="MMHOOK.RoR2" Version="2025.11.19" />
+		<PackageReference Include="MMHOOK.RoR2" Version="2025.11.19" NoWarn="NU1701" />
 		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.4.0-r.0" />
 		<PackageReference Include="Rune580.Mods.RiskOfRain2.RiskOfOptions" Version="2.8.3" />
 		<PackageReference Include="R2API.Core" Version="5.2.0" />

@@ -31,8 +31,11 @@ The build file relies on `MinVer` for generating the version and passes it to `B
 ## Releasing
 1. Add a new entry to `<ModName>/CHANGELOG.md` and copy-paste the new entry to `<ModName>/README.md`
 2. Commit changes and push with tag `<ModName>-<Major>.<Minor>.<Patch>`
-3. Run `dotnet build <ModName> -c Release` to generate build artifacts
-4. Run `dotnet build <ModName> -c Release -t:PublishThunderstore` to publish to Thunderstore
-5. Manually create a new GitHub release
+3. `.github/workflows/publish.yml` will auto-publish to Thunderstore
+4. Manually create a new GitHub release
    - The description should be the same as step 1
    - Attach `<ModName>/Thunderstore/dist/quasikyo-<ModName>-<Major>.<Minor>.<Patch>.zip`
+
+### Non-workflow Release
+1. Run `dotnet build <ModName> -c Release` to generate build artifacts
+2. Run `dotnet build <ModName> -c Release -t:PublishThunderstore` to publish to Thunderstore
