@@ -167,7 +167,7 @@ namespace ReduceRecycler {
 		private int GetEquipmentCharges(EquipmentSlot equipmentSlot) {
 			Inventory inventory = equipmentSlot.characterBody.inventory;
 			uint slot = inventory.activeEquipmentSlot;
-			EquipmentState state = inventory.GetEquipment(slot);
+			EquipmentState state = inventory.GetEquipment(slot, inventory.FindBestEquipmentSetIndex());
 			return state.charges;
 		}
 

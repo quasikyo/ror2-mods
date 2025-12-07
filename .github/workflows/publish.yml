@@ -4,8 +4,12 @@ on:
   push:
     tags: ["[A-Za-z]+-[0-9]+.[0-9]+.[0-9]+"]
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -31,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: build-artifacts
-          path: ./$MODNAME/Thunderstore/dist/$GITHUB_REF_NAME.zip
+          path: ./*/Thunderstore/dist/*.zip
 
       - name: Publish to Thunderstore
         env:

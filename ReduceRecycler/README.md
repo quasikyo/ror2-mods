@@ -7,11 +7,10 @@ Sets Recycler cooldown to instant and adds the cooldown to the run timer.
 
 I have not tested this in multiplayer, but users have reported that it works as of 1.1.3.
 
-## [1.3.2](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.2) - 2025-11-30
+## [1.3.3](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.3) - 2025-12-06
 
 ### Fixed
-- Fix compatibility with new Alloyed Collective Update https://github.com/quasikyo/ror2-mods/issues/19
-- Address log spam https://github.com/quasikyo/ror2-mods/issues/18
+- Update `Inventory::GetEquipment(uint)` to `Invetory::GetEquipment(uint, uint)`
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ReduceRecycler),
