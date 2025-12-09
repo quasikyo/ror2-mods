@@ -1,6 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), and the format of this changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.3](https://github.com/quasikyo/ror2-mods/releases/tag/LaserScopeCritChance-1.0.3) - 2025-12-08
+
+### Changed
+- Depend on R2API submodules [#23](https://github.com/quasikyo/ror2-mods/pull/23) ([@1Naim](https://github.com/1Naim))
+
 ## [1.0.2](https://github.com/quasikyo/ror2-mods/releases/tag/LaserScopeCritChance-1.0.2) - 2025-12-02
 
 ### Changed

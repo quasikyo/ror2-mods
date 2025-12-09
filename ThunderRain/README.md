@@ -8,13 +8,10 @@ Operates [PiShocks](https://pishock.com) in response to in-game damage events.
 ## Safety
 Please configure shock maximums in the config and the share code.
 
-## [1.1.2](https://github.com/quasikyo/ror2-mods/releases/tag/ThunderRain-1.1.1) - 2025-12-07
-
-### Added
-- FAQ to README
+## [1.1.3](https://github.com/quasikyo/ror2-mods/releases/tag/ThunderRain-1.1.3) - 2025-12-08
 
 ### Changed
-- Bump versions for DLC3
+- Depend on R2API submodules [#23](https://github.com/quasikyo/ror2-mods/pull/23) ([@1Naim](https://github.com/1Naim))
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ThunderRain),

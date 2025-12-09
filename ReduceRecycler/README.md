@@ -7,10 +7,10 @@ Sets Recycler cooldown to instant and adds the cooldown to the run timer.
 
 I have not tested this in multiplayer, but users have reported that it works as of 1.1.3.
 
-## [1.3.3](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.3) - 2025-12-06
+## [1.3.4](https://github.com/quasikyo/ror2-mods/releases/tag/ReduceRecycler-1.3.4) - 2025-12-08
 
-### Fixed
-- Update `Inventory::GetEquipment(uint)` to `Invetory::GetEquipment(uint, uint)`
+### Changed
+- Depend on R2API submodules [#23](https://github.com/quasikyo/ror2-mods/pull/23) ([@1Naim](https://github.com/1Naim))
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ReduceRecycler),
@@ -28,7 +28,8 @@ For the full changelog, see:
   - OnDemand: cooldown is reset on button press
 
 ## Issue Reporting and Suggestions
-Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
+1. Check [the FAQ](#faq).
+2. Contact me on Discord (`quasikyo`) or submit a new issue [here](https://github.com/quasikyo/ror2-mods/issues).
 
 ## FAQ
 

@@ -1,4 +1,10 @@
 # Changelog
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), and the format of this changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## [0.5.2](https://github.com/quasikyo/ror2-mods/releases/tag/RumbleRain-0.5.2) - 2025-12-08
+
+### Changed
+- Depend on R2API submodules [#23](https://github.com/quasikyo/ror2-mods/pull/23) ([@1Naim](https://github.com/1Naim))
 
 ## [0.5.1](https://github.com/quasikyo/ror2-mods/releases/tag/RumbleRain-0.5.1) - 2025-12-07
 
@@ -6,9 +12,13 @@
 - Bump versions for DLC3
 
 ## [0.5.0](https://github.com/quasikyo/ror2-mods/releases/tag/RumbleRain-0.5.0) - 2024-09-08
+
+### Changed
 - Update for SotS
-- Remove Fody Costura
 - Update Buttplug dependency to 4.0.0 from 3.0.1
+
+### Removed
+- Remove Fody Costura
 
 ## [0.4.2](https://github.com/quasikyo/ror2-mods/releases/tag/RumbleRain-0.4.2) - 2023-12-07
 

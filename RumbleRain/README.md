@@ -5,10 +5,10 @@
 
 Vibrates [BPio-capable](https://buttplug.io) devices in response to in-game damage events.
 
-## [0.5.1](https://github.com/quasikyo/ror2-mods/releases/tag/RumbleRain-0.5.1) - 2025-12-07
+## [0.5.2](https://github.com/quasikyo/ror2-mods/releases/tag/RumbleRain-0.5.2) - 2025-12-08
 
 ### Changed
-- Bump versions for DLC3
+- Depend on R2API submodules [#23](https://github.com/quasikyo/ror2-mods/pull/23) ([@1Naim](https://github.com/1Naim))
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=RumbleRain),
