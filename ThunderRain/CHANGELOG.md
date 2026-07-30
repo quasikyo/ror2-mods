@@ -1,6 +1,12 @@
 # Changelog
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), and the format of this changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.0.0](https://github.com/quasikyo/ror2-mods/releases/tag/ThunderRain-2.0.0) - 2026-07-30
+
+### Changed
+- Replace calls to deprecated `do.pishock.com` to `api.pishock.com` [#27](https://github.com/quasikyo/ror2-mods/issues/27)
+- Replace `PiShockShareCodes` option with `PiShockShockerIds`
+
 ## [1.1.3](https://github.com/quasikyo/ror2-mods/releases/tag/ThunderRain-1.1.3) - 2025-12-08
 
 ### Changed

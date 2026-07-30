@@ -13,7 +13,7 @@ namespace ThunderRain {
 		#region PiShock Info
 		internal static ConfigEntry<string> PiShockUsername { get; set; }
 		internal static ConfigEntry<string> PiShockApiKey { get; set; }
-		internal static ConfigEntry<string> PiShockShareCodes { get; set; }
+		internal static ConfigEntry<string> PiShockShockerIds { get; set; }
 		#endregion
 
 		#region Activated By
@@ -79,13 +79,13 @@ namespace ThunderRain {
 			);
 			ModSettingsManager.AddOption(new StringInputFieldOption(PiShockApiKey));
 
-			PiShockShareCodes = OptionsConfig.Bind(
+			PiShockShockerIds = OptionsConfig.Bind(
 				"PiShock Info",
-				"PiShock Share Code",
+				"PiShock Shocker IDs",
 				"",
-				"Share code generated on PiShock control panel. Separate each code with a comma."
+				"ID of a shocker found in the shocker's info. Separate each ID with a comma. Refer to https://docs.pishock.com/pishock/pishock-v3-documentation.html#Shocker_Interface_0."
 			);
-			ModSettingsManager.AddOption(new StringInputFieldOption(PiShockShareCodes));
+			ModSettingsManager.AddOption(new StringInputFieldOption(PiShockShockerIds));
 			#endregion
 
 			#region Activated By

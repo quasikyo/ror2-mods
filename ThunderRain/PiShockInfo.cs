@@ -1,4 +1,5 @@
 using System;
+using EntityStates.Seeker;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -16,28 +17,29 @@ namespace ThunderRain {
 	internal class PiShockRequest {
 
 		/// <summary>
-		/// Username of the PiShock owner.
-		/// </summary>
-		[JsonProperty("Username")]
-		internal string Username { get; set; }
-
-		/// <summary>
-		/// API key belonging to the PiShock owner's account.
-		/// </summary>
-		[JsonProperty("Apikey")]
-		internal string ApiKey { get; set; }
-
-		/// <summary>
-		/// Share code of the shocker to operate.
-		/// </summary>
-		[JsonProperty("Code")]
-		internal string Code { get; set; }
-
-		/// <summary>
 		/// Name of the entity executing the operation.
 		/// </summary>
-		[JsonProperty("Name")]
-		internal string Name { get; set; }
+		[JsonProperty("AgentName")]
+		[Obsolete("This field is being deprecated by the PiShock API and will be replaced by the name of the API key")]
+		internal string AgentName { get; set; }
+
+		/// <summary>
+		/// Duration of the operation in milliseconds from <c>[16, 15000]</c>.
+		/// </summary>
+		[JsonProperty("Duration")]
+		internal int DurationMilliseconds { get; set; }
+
+		/// <summary>
+		/// Intensity of the operations from <c>[0, 100]</c>.
+		/// </summary>
+		[JsonProperty("Intensity")]
+		internal int Intensity { get; set; }
+
+		/// <summary>
+		/// If <c>Intensity</c> should act a percentage of the shocker's configured maximum.
+		/// </summary>
+		[JsonProperty("IntensityAsPercentage")]
+		internal bool IntensityAsPercentage { get; set; }
 
 		/// <summary>
 		/// <see cref="PiShockOperation">Operation type.</see>
@@ -45,20 +47,8 @@ namespace ThunderRain {
 		/// 1 = Vibrate
 		/// 2 = Beep
 		/// </summary>
-		[JsonProperty("Op")]
+		[JsonProperty("Operation")]
 		internal int Operation { get; set; }
-
-		/// <summary>
-		/// Duration of the operation in seconds from <c>[0, 15]</c>.
-		/// </summary>
-		[JsonProperty("Duration")]
-		internal int DurationSeconds { get; set; }
-
-		/// <summary>
-		/// Intensity of the operations from <c>[0, 100]</c>.
-		/// </summary>
-		[JsonProperty("Intensity")]
-		internal int Intensity { get; set; }
 	}
 
 	/// <summary>
@@ -67,12 +57,12 @@ namespace ThunderRain {
 	internal class PiShockShocker {
 
 		/// <summary>
-		/// The share code of the shocker generated on the PiShock portal.
+		/// The ID of the shocker found on the PiShock portal.
 		/// </summary>
-		internal string ShareCode { get; set; }
+		internal string ShockerId { get; set; }
 
-		internal PiShockShocker(string shareCode) {
-			ShareCode = shareCode;
+		internal PiShockShocker(string shockerId) {
+			ShockerId = shockerId;
 		}
 
 	}
@@ -92,7 +82,7 @@ namespace ThunderRain {
 
 		private TimeSpan _duration = TimeSpan.Zero;
 		/// <summary>
-		/// Duration of the operation from <c>[0, 15]</c> seconds.
+		/// Duration of the operation from <c>(0, 15]</c> seconds.
 		/// </summary>
 		internal TimeSpan Duration {
 			get => _duration;

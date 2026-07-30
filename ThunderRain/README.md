@@ -8,10 +8,11 @@ Operates [PiShocks](https://pishock.com) in response to in-game damage events.
 ## Safety
 Please configure shock maximums in the config and the share code.
 
-## [1.1.3](https://github.com/quasikyo/ror2-mods/releases/tag/ThunderRain-1.1.3) - 2025-12-08
+## [2.0.0](https://github.com/quasikyo/ror2-mods/releases/tag/ThunderRain-2.0.0) - 2026-07-30
 
 ### Changed
-- Depend on R2API submodules [#23](https://github.com/quasikyo/ror2-mods/pull/23) ([@1Naim](https://github.com/1Naim))
+- Replace calls to deprecated `do.pishock.com` to `api.pishock.com` [#27](https://github.com/quasikyo/ror2-mods/issues/27)
+- Replace `PiShockShareCodes` option with `PiShockShockerIds`
 
 For the full changelog, see:
 - [the GitHub releases page](https://github.com/quasikyo/ror2-mods/releases?q=ThunderRain),
@@ -27,9 +28,9 @@ For the full changelog, see:
 #### PiShock Info
 - PiShock Username
 - PiShock API Key generated on your [PiShock account page](https://pishock.com/#/account)
-- PiShock Share Codes
-  - These are the alphanumeric share codes generated per shocker on the [PiShock control panel](https://pishock.com/#/control)
-  - Example: `2A1A18697BC`
+- PiShock Shocker IDs
+  - These are the 4-digit (potentially longer) IDs assigned to each shocker and can be found by clicking on the shocker's gear icon on the [PiShock control panel](https://pishock.com/#/control). Consult [PiShock's documentation](https://docs.pishock.com/pishock/pishock-v3-documentation.html#Shocker_Interface_0) for finding "Shocker Info"
+  - Example: `8690`
 
 #### Activated By
 The in-game triggers to enable.
